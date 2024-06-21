@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "866724920702",
+    "project_id": "notesapp-ea64a",
+    "storage_bucket": "notesapp-ea64a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866724920702:android:07dfa3322d8d37b878872f",
+        "android_client_info": {
+          "package_name": "com.akapps.ak_notes_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqKOFkR45izWQ9Ujuv05f3d3nuj76eAU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866724920702:android:ae454d971d19ee7c78872f",
+        "android_client_info": {
+          "package_name": "com.akapps.fire_base"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqKOFkR45izWQ9Ujuv05f3d3nuj76eAU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
