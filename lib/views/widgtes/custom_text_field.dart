@@ -6,7 +6,7 @@ class CustomTextField extends StatelessWidget {
   final String hint;
   final int maxLines;
   final String textValue;
-  ScrollController _scrollController = ScrollController();
+ final ScrollController _scrollController = ScrollController();
   final void Function(String?)? onSaved;
    final void Function(String)? onChanged;
   @override

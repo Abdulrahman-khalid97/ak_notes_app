@@ -1,4 +1,5 @@
 
+import 'package:ak_notes_app/controllers/notes_controller.dart';
 import 'package:ak_notes_app/models/note_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class EditNoteViewBodyState extends State<EditNoteViewBody> {
   String? title , content;
   @override
   Widget build(BuildContext context) {
-    final fireStoreProvider = Provider.of<FirebaseController>(context);
+    final notesController = Provider.of<NotesController>(context);
     return  Scaffold(
       body : Padding(
         padding:const  EdgeInsets.symmetric(horizontal: 16),
@@ -38,14 +39,14 @@ class EditNoteViewBodyState extends State<EditNoteViewBody> {
             widget.note!.title=title?? widget.note!.title;
             widget.note!.content=content?? widget.note!.content;
 
-              fireStoreProvider.update(NOTES_COLLECTION ,widget.note!).then((value){
+              notesController.update(widget.note!).then((value){
                 SnackBarDialoge.showSnackBar(
                     icon: Icons.check_circle,
                     bgColor: Colors.green,
                     messageColor: Colors.white,
                     context,
                     message: successAddedMsg);
-                Navigator.pop(context);
+                  Navigator.pop(context);
               }).catchError((error)=>{
                 SnackBarDialoge.showSnackBar(
                     icon: Icons.error,

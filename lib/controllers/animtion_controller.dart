@@ -7,10 +7,10 @@ class AnimtionController extends ChangeNotifier{
 
   bool animate=false;
   Future startAnimation ()  async{
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     animate=true;
     ChangeNotifier();
-    await Future.delayed(Duration(milliseconds: 5000));
+    await Future.delayed(const Duration(milliseconds: 5000));
     ChangeNotifier();
     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>WelcomeScreen()));
   }

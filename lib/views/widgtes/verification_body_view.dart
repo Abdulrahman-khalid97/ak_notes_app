@@ -19,8 +19,8 @@ class _VerificationBodyViewState extends State<VerificationBodyView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _auth.sendEmailVerficationEmail();
-    _timer = Timer.periodic(Duration(seconds: 3), (timer){
+    _auth.sendEmailVerificationEmail();
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer){
       FirebaseAuth.instance.currentUser?.reload();
       if(FirebaseAuth.instance.currentUser!.emailVerified){
         _timer.cancel();
@@ -41,22 +41,22 @@ class _VerificationBodyViewState extends State<VerificationBodyView> {
                 Image.asset("assets/images/mail-box.png" ,
                 height: 120,
                 width: 120,),
-                SizedBox(height: 32,),
-                Text("Verify Your Email Address" ,
+                const SizedBox(height: 32,),
+                const Text("Verify Your Email Address" ,
                 style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20),) ,
-                SizedBox(height: 24,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Text("We've sent a verification email\nPlease check your inbox and click the link in the email to confirm your email address and finish setting up your account. Once you've verified your email, you'll be able to access all the features of the app." ,
+               const  SizedBox(height: 24,),
+               const  Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 24),
+                  child:  Text("We've sent a verification email\nPlease check your inbox and click the link in the email to confirm your email address and finish setting up your account. Once you've verified your email, you'll be able to access all the features of the app." ,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,),
                 )
                 ,
-                SizedBox(height:48,),
+               const  SizedBox(height:48,),
                 TextButton(onPressed: () async{
-                  await _auth.sendEmailVerficationEmail();
+                  await _auth.sendEmailVerificationEmail();
 
-                }, child: Text("Resend Email"))
+                }, child: const Text("Resend Email"))
               ],
                  ),
            ),

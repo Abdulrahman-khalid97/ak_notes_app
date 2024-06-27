@@ -1,11 +1,11 @@
 
 
 import 'package:ak_notes_app/controllers/auth_controller.dart';
-import 'package:ak_notes_app/controllers/notes_controller.dart';
+
 import 'package:ak_notes_app/views/add_note_view.dart';
-import 'package:ak_notes_app/views/widgtes/add_note_bottom_sheet.dart';
+
 import 'package:ak_notes_app/views/widgtes/note_view_body.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +22,7 @@ class NoteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
-      body:   NotesViewBody(),
+      body:   const NotesViewBody(),
       floatingActionButton: FloatingActionButton(onPressed: (){
 
       Navigator.push(
@@ -40,9 +40,10 @@ class NoteView extends StatelessWidget {
         //   return AddNoteBottomSheet();
         // });
       } ,
-      child: Icon(Icons.add , color: kWhiteColor,),
+
       backgroundColor: kPrimaryColor,
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
+        child: const  Icon(Icons.add , color: kWhiteColor,),
       )
     );
   }

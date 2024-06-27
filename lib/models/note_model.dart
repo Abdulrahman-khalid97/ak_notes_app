@@ -11,6 +11,7 @@ class NoteModel{
       required this.title,
       required this.content,
       required this.date,
+     this.id,
   });
 
   Map<String , dynamic> toMap(){
@@ -29,7 +30,14 @@ class NoteModel{
 
 
 
+  factory NoteModel.fromFirestore(DocumentSnapshot doc){
 
+    return NoteModel(
+        id: doc.id,
+        title: doc['title'],
+        content: doc['content'],
+        date: doc['date']);
+  }
 
 
 }

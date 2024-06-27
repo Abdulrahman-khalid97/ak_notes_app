@@ -1,18 +1,17 @@
 
 import 'package:ak_notes_app/controllers/notes_controller.dart';
-import 'package:ak_notes_app/models/note_model.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/color_name.dart';
 import 'custom_text_field.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
-   AddNoteBottomSheet({super.key});
+   const AddNoteBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Padding(
-       padding:const  EdgeInsets.symmetric(horizontal: 16),
+       padding:  EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
         child:AddNoteForm(),
       )
@@ -88,7 +87,7 @@ class CustomButton extends StatelessWidget {
           color: kPrimaryColor , 
           borderRadius: BorderRadius.circular(8)
         ),
-        child: Center(
+        child: const Center(
           child: Text("Save" , style: TextStyle(
             fontWeight: FontWeight.bold
           ),),

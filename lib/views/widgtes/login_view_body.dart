@@ -1,4 +1,5 @@
 
+import 'package:ak_notes_app/services/auth_service.dart';
 import 'package:ak_notes_app/views/notes_view.dart';
 import 'package:ak_notes_app/views/register_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,29 +18,16 @@ class LoginViewBody extends StatefulWidget {
 
 class _LoginViewBodyState extends State<LoginViewBody> {
   String? errorMessage='';
+
   bool loading=false;
   // bool isLogin = true;
   bool passVisibility=true;
   String? email , password;
   final GlobalKey<FormState> _frmKey = GlobalKey();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
-  // final TextEditingController _controllerEmail = TextEditingController();
-  // final TextEditingController _controllerPassword = TextEditingController();
 
 
-
-  Widget _errorMessage(){
-    return Text(errorMessage ==''?"" : "Hum  $errorMessage");
-  }
-  Widget _loginOrRegister(){
-    return TextButton(onPressed: (){
-      setState(() {
-        // isLogin= !isLogin;
-      });
-    }, child: Text("Login instead"));
-  }
-
-@override
+ @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -51,21 +39,21 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       body: Container(
         alignment: Alignment.center,
           child:  ListView(
-            padding: EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 16),
               shrinkWrap: true,
               children: [
-                Center(child: Text("AK Notes" , style:
+               const  Center(child: Text("AK Notes" , style:
                 TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 24
                 )) , ),
-                SizedBox(height: 16,),
-                Image(
+               const  SizedBox(height: 16,),
+                const Image(
                   image: AssetImage("assets/images/note_logo.png"),
                   width: 150,
                   height: 150,
                 ),
-                SizedBox(height: 32,),
+                const SizedBox(height: 32,),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Form(
@@ -143,11 +131,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                               setState(() {
                                 loading=true;
                               });
-                              AuthController().signInWithEmailAndPassword(email: email!,password:  password!).then((value){
+                              AuthService().signInWithEmailAndPassword(email: email!,password:  password!).then((value){
                                setState(() {
                                  loading=false;
                                });
-                                // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NoteView()));
+                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NoteView()));
                               }).catchError((error){
                                 setState(() {
                                   loading=false;
@@ -160,7 +148,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.of(context).pop(false),
-                                      child: Text('Cancel'),
+                                      child: const  Text('Cancel'),
                                     ),
                                   ],
                                 ),);
@@ -176,12 +164,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                loading?Container(
+                                loading? const SizedBox(
                                    width:24,
                                     height: 24,
-                                    child: CircularProgressIndicator()):Icon(Icons.login) ,
-                                 SizedBox(width: 24,),
-                                Text("Login")
+                                    child:  CircularProgressIndicator()): const Icon(Icons.login) ,
+                                const SizedBox(width: 24,),
+                              const  Text("Login")
                               ],
                             ),
                           )) ,
@@ -192,7 +180,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                               const Text("Haven't an account ? ") ,
                               InkWell(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>RegisterView()));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const RegisterView()));
 
                                   // Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterView()));
                                 },

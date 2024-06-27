@@ -18,33 +18,33 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(tille , style: TextStyle(
+        Text(tille , style: const TextStyle(
           fontSize: 28
         ),),
-        Spacer(),
+        const Spacer(),
         Row(
           children: [
-            tille=="Note"? IconButton(onPressed: onThemeToggled, icon: !isDark? Icon(Icons.dark_mode): Icon(Icons.light_mode)): Container(),
+            tille=="Note"? IconButton(onPressed: onThemeToggled, icon: !isDark? const Icon(Icons.dark_mode): const Icon(Icons.light_mode)): Container(),
             const SizedBox(width: 8,),
              CustomIcon(icon: icon, onIconPressed: onIconPressed,),
             tille=="Note"? PopupMenuButton(
               onSelected: (item){
               switch(item){
                 case 0 :
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SettingsView()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const SettingsView()));
                   break;
                 case 1 :
                   AuthController().signOut();
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                  LoginView()));
+                  const LoginView()));
 
                   break;
               }
               },
-                itemBuilder: (context)=>[
-              PopupMenuItem(child: Text("Settings") , value: 0,) ,
-                  PopupMenuItem(child: Text("SignOut") , value: 1,)
-            ]) :Container()
+                itemBuilder: (context)=>const [
+               PopupMenuItem( value: 0,child: Text("Settings") ,) ,
+                    PopupMenuItem( value: 1,child: Text("SignOut") ,)
+            ]) : Container()
              ],
         )
       ],

@@ -11,16 +11,17 @@ class SnackBarDialoge{
     IconData? icon
   }){
     final snackBar = SnackBar(
-      padding: EdgeInsets.only(left: 8 , right: 8 , top: 5 , bottom: 5),
+      padding: const EdgeInsets.only(left: 8 , right: 8 , top: 5 , bottom: 5),
         backgroundColor: bgColor,
         behavior: SnackBarBehavior.floating,
         content: Row(
           children: [
             Icon(icon??Icons.info_outline) ,
-            SizedBox(width: 16,),
+            const SizedBox(width: 16,),
             Text(message , style: TextStyle(color: messageColor),) ,
-            Spacer() ,
-            TextButton(onPressed: ()=> ScaffoldMessenger.of(context).hideCurrentSnackBar(), child: Text('DISMISS' , style: TextStyle(
+            const Spacer() ,
+            TextButton(onPressed: ()=> ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                child: const  Text('DISMISS' , style: TextStyle(
               fontWeight: FontWeight.bold
             ),))
           ],

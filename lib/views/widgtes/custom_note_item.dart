@@ -1,5 +1,4 @@
 import 'package:ak_notes_app/models/note_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../edit_note_view.dart';
@@ -23,7 +22,7 @@ class NoteItem extends StatelessWidget {
         },
         child: Container(
           clipBehavior: Clip.antiAlias,
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey.withOpacity(0.2), width: 0.8),
             color: Colors.transparent,
@@ -40,15 +39,15 @@ class NoteItem extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 2),
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Colors.blue,
                           size: 14,
                         ),
                         Flexible(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 6),
-                            child: Text(note.title!,
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: Text(note.title,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.start),
@@ -57,15 +56,15 @@ class NoteItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 0.5,
                     color: Colors.grey,
                   ),
                 ],
               ),
               Text(
-               note.content!,
-                style: TextStyle(height: 1.2),
+               note.content,
+                style: const TextStyle(height: 1.2),
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start,
                 maxLines: 8,

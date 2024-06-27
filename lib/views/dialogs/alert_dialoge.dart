@@ -8,16 +8,16 @@ class AlertDialoge{
       barrierDismissible: false,
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Delete Item'),
-        content: Text('Are you sure you want to delete this item?'),
+        title: const Text('Delete Item'),
+        content: const  Text('Are you sure you want to delete this item?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: Text('Delete'),
+            child: const Text('Delete'),
           ),
         ],
       ),

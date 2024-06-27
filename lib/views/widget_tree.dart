@@ -1,6 +1,8 @@
 
 import 'package:ak_notes_app/controllers/auth_controller.dart';
 import 'package:ak_notes_app/controllers/firebase_controller.dart';
+import 'package:ak_notes_app/models/user_model.dart';
+import 'package:ak_notes_app/services/auth_service.dart';
 import 'package:ak_notes_app/views/login_view.dart';
 import 'package:ak_notes_app/views/notes_view.dart';
 import 'package:ak_notes_app/views/verfication_view.dart';
@@ -16,10 +18,10 @@ class WidgetTree extends StatefulWidget {
 class _WidgetTreeState extends State<WidgetTree> {
   @override
   Widget build(BuildContext context) {
-    final _firebaseController = Provider.of<FirebaseController>(context);
+    final auth = Provider.of<AuthController>(context);
 
     return StreamBuilder(
-        stream: _firebaseController.authStateChanges,
+        stream: auth.authStateChanges,
         builder: (context , snapshot){
           if(snapshot.connectionState== ConnectionState.waiting){
             return const Center(
@@ -39,8 +41,8 @@ class _WidgetTreeState extends State<WidgetTree> {
               if(snapshot.data?.emailVerified==true){
                 return  NoteView();
               }
-              print(snapshot.data);
-                return VerficationView();
+
+                return const VerficationView();
 
             }
           }

@@ -1,8 +1,11 @@
+import 'package:ak_notes_app/controllers/auth_controller.dart';
 import 'package:ak_notes_app/controllers/firebase_controller.dart';
+import 'package:ak_notes_app/controllers/notes_controller.dart';
+import 'package:ak_notes_app/controllers/user_controller.dart';
 import 'package:ak_notes_app/firebase_options.dart';
-import 'package:ak_notes_app/views/login_view.dart';
-import 'package:ak_notes_app/views/notes_view.dart';
-import 'package:ak_notes_app/views/verfication_view.dart';
+import 'package:ak_notes_app/services/auth_service.dart';
+import 'package:ak_notes_app/services/database_service.dart';
+
 import 'package:ak_notes_app/views/widget_tree.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +31,13 @@ class NotesApp extends StatelessWidget {
     return
         MultiProvider(providers: [
           Provider<AppState>(create: (_) => AppState()),
-          Provider<FirebaseController>(create: (_ ) => FirebaseController()),
+          Provider<AuthService>(create: (_) => AuthService()),
+          Provider<DatabaseService>(create: (_) => DatabaseService()),
+          Provider<AuthController>(create: (_)=>AuthController()),
+         Provider<UserController>(create: (_) => UserController()),
+          Provider<NotesController>(create: (_) => NotesController()),
+        // ChangeNotifierProvider<UserController>(create: (_)=>UserController(),)
+
         ],
     child: ChangeNotifierProvider(
       create: (context)=>AppState() ,
@@ -39,10 +48,11 @@ class NotesApp extends StatelessWidget {
                 brightness: value,
                 fontFamily: "Poppins"
             ),
-            home: WidgetTree(),
+            home: const WidgetTree(),
             // WidgetTree(),
             // NoteView(),
             debugShowCheckedModeBanner: false,
+
           );
         },
         selector: (ctx, myAppSate){
@@ -52,14 +62,6 @@ class NotesApp extends StatelessWidget {
       )
     )
         );
-    //   ChangeNotifierProvider(create: (_)=>FirestoreProvider() ,
-    // child: MaterialApp(
-    //   theme: ThemeData(
-    //       brightness: Brightness.light,
-    //       fontFamily: "Poppins"
-    //   ),
-    //   home: const NoteView(),
-    //   debugShowCheckedModeBanner: false,
-    // ),);
+
   }
 }

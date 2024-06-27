@@ -55,7 +55,7 @@ class _NotesViewBodyState extends State<NotesViewBody> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Column(
           children:  [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Padding(
@@ -68,7 +68,7 @@ class _NotesViewBodyState extends State<NotesViewBody> {
               },),
             ) ,
 
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Expanded(

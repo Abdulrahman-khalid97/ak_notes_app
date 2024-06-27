@@ -1,13 +1,13 @@
 
 
 import 'package:ak_notes_app/controllers/firebase_controller.dart';
+import 'package:ak_notes_app/controllers/notes_controller.dart';
 import 'package:ak_notes_app/models/note_model.dart';
 import 'package:ak_notes_app/views/dialogs/snack_bar_dialoge.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/collection_name.dart';
 import '../constants/color_name.dart';
 import 'custom_app_bar.dart';
 import 'custom_text_field.dart';
@@ -17,7 +17,7 @@ class AddNoteViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   _AddNoteForm() ;
+    return   const _AddNoteForm() ;
   }
 }
 
@@ -38,14 +38,14 @@ class _AddNoteFormState extends State<_AddNoteForm> {
   NoteModel? note;
   @override
   Widget build(BuildContext context) {
-    final firestoreProvidr = Provider.of<FirebaseController>(context);
+    final notesController = Provider.of<NotesController>(context);
     return
       Scaffold(
         body : Padding(
           padding:const  EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               CustomAppBar(tille: "Add Note", icon: Icons.arrow_right_alt_outlined,onIconPressed: (){
@@ -83,7 +83,7 @@ class _AddNoteFormState extends State<_AddNoteForm> {
           if(_frmKey.currentState!.validate()){
             _frmKey.currentState!.save();
             note = NoteModel(title: title!, content: content! ,date: FieldValue.serverTimestamp());
-            firestoreProvidr.add( note:note).then((value){
+            notesController.add( note:note).then((value){
 
               SnackBarDialoge.showSnackBar(
                icon: Icons.check_circle,
@@ -109,9 +109,9 @@ class _AddNoteFormState extends State<_AddNoteForm> {
             autovalidateMode= AutovalidateMode.always;
           }
         },
-          child: Icon(Icons.check_rounded , color: kWhiteColor,),
           backgroundColor: kPrimaryColor,
-          shape: CircleBorder(),
+          shape: const CircleBorder(),
+          child: const Icon(Icons.check) ,
         ),
       );
   }
@@ -134,7 +134,7 @@ class CustomButton extends StatelessWidget {
             color: kPrimaryColor ,
             borderRadius: BorderRadius.circular(8)
         ),
-        child: Center(
+        child: const Center(
           child: Text("Save" , style: TextStyle(
               fontWeight: FontWeight.bold
           ),),
