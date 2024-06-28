@@ -35,8 +35,7 @@ class DatabaseService {
   }
 
   Future<void> updateUser(UserModel user) async {
-    return await _db.collection(USERS_COLLECTION).doc(user.id).update(
-        user.toMap());
+    return await _db.collection(USERS_COLLECTION).doc(user.id).update(user.toMap());
   }
 
 

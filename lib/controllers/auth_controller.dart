@@ -20,7 +20,7 @@ class AuthController extends ChangeNotifier{
     required String password,
 }) async{
     await _authService.signInWithEmailAndPassword(email: email.trim(), password: password.trim());
-    print(password +email);
+
 
   }
 
@@ -69,7 +69,9 @@ class AuthController extends ChangeNotifier{
   }
   Future<void> updatePassword(String currentPassword, String newPassword) async {
 
-   return await _authService.updatePassword(currentPassword, newPassword);
+   return await _authService.updatePassword(currentPassword, newPassword).then((onValue){
+     UserController().updateUser(UserController().user!);
+   });
 
   }
 
