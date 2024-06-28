@@ -699,7 +699,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2023),
+      firstDate: DateTime(1980),
       lastDate: DateTime(2025),
     );
 
