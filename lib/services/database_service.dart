@@ -82,7 +82,7 @@ class DatabaseService {
     });
   }
 
-   deleteNote(NoteModel note)async{
+   Future<void> deleteNote(NoteModel note)async{
     // await _firestore.collection(USERS_COLLECTION).doc(note.id).delete();
     final userDoc = await _db
         .collection(USERS_COLLECTION)

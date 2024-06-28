@@ -27,8 +27,8 @@ class NotesListView extends StatelessWidget {
 
     return ChangeNotifierProvider(create: (_)=>notesController ,
       child: Consumer<NotesController>(
-        builder: (context , notes , child){
-          if(notes.notes!.isEmpty){
+        builder: (context , notesProvider , child){
+          if(notesProvider.notes!.isEmpty){
             return Center(
               child: Text("There is no data yet"),
             );
@@ -40,29 +40,30 @@ class NotesListView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
               crossAxisCount: 4,
               physics: const BouncingScrollPhysics(),
-              itemCount: notes.notes!.length,
+              itemCount: notesProvider.notes!.length,
               itemBuilder: (context, index) =>
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Dismissible(
                       direction: DismissDirection.startToEnd,
-                      key: Key('note-${notes.notes![index].id}-$index'),
-                      child: NoteItem(note: notes.notes![index], deleteEvent: () {}),
+                      key: Key('note-${notesProvider.notes![index].id}-$index'),
+                      child: NoteItem(note: notesProvider.notes![index], deleteEvent: () {}),
                       confirmDismiss: (direction) async {
-                        print( notes.notes![index].id);
+                        print( notesProvider.notes![index].id);
                         bool shouldDismiss = await AlertDialoge()
                             .showAlertDialog(context);
                         return shouldDismiss ?? false;
                       },
                       onDismissed: (direction) async {
-                        await notesController.delete(notes.notes![index]);
+                        await notesController.delete(notesProvider.notes![index]).then((onValue){
+                          SnackBarDialoge.showSnackBar(
+                              icon: Icons.error,
+                              bgColor: Colors.red,
+                              messageColor: Colors.white,
+                              context,
+                              message: "Have deleted Successfully");
+                        });
 
-                        SnackBarDialoge.showSnackBar(
-                            icon: Icons.error,
-                            bgColor: Colors.red,
-                            messageColor: Colors.white,
-                            context,
-                            message: "Have deleted Successfully");
                       },
                     ),
                   ),

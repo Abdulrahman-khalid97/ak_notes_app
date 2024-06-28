@@ -52,7 +52,9 @@ NotesController(){
     Future<void> delete(NoteModel note) async{
       notes?.remove(note);
       notifyListeners();
-      final delete= await DatabaseService().deleteNote(note);
+      final delete= await DatabaseService().deleteNote(note).then((onValue){
+
+      });
 
 
       return delete;

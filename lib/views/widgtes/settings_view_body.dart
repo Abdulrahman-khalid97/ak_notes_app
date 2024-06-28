@@ -513,7 +513,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                               userProvider.initialNewValue(fName!, lName!, gender!,
                                   "${_selectedDate!.year}/${_selectedDate!.month}/${_selectedDate!.day}");
 
-                             await UserController().updateUser(user).then((onValue){
+                             await userProvider.updateUser(userProvider.user!).then((onValue){
                                userProvider.changeVal(0 , false);
                                userProvider.changeVal(1, false);
                                userProvider.changeVal(2 , false);
