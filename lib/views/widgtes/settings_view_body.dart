@@ -1,15 +1,10 @@
 
 import 'package:ak_notes_app/controllers/app_state.dart';
 import 'package:ak_notes_app/controllers/user_controller.dart';
-
 import 'package:ak_notes_app/models/user_model.dart';
-import 'package:ak_notes_app/services/auth_service.dart';
-import 'package:ak_notes_app/services/database_service.dart';
 import 'package:ak_notes_app/views/constants/enum/theme_enum.dart';
 import 'package:ak_notes_app/views/widgtes/change_password_body.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -55,11 +50,8 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
 
   @override
   Widget build(BuildContext context) {
-   // final userController = context.watch<UserController>();
-    final userProvider = Provider.of<UserController>(context, listen: true);
 
-    final auth = Provider.of<AuthService>(context);
-  final db =Provider.of<DatabaseService>(context);
+    final userProvider = Provider.of<UserController>(context, listen: true);
     final appState = Provider.of<AppState>(context , listen: true);
 
     return
@@ -132,7 +124,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                                   .of(context)
                                                   .size
                                                   .width / 3,
-                                              child: Text("Downloading..."));
+                                              child: const Text("Downloading..."));
                                         }
                                         else {
                                           fName = value.fName;
@@ -192,7 +184,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                       if(value.lName==null){
                                         return  SizedBox(
                                             width: MediaQuery.of(context).size.width / 3,
-                                            child:Text("Downloading..."));
+                                            child:const Text("Downloading..."));
                                       }
                                       else {
                                         lName=value.lName;
@@ -452,7 +444,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                       ) ,
                       InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ChangePasswordBody()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const ChangePasswordBody()));
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16 , horizontal:24 ),
@@ -520,9 +512,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                               _frmKey.currentState!.save();
                               userProvider.initialNewValue(fName!, lName!, gender!,
                                   "${_selectedDate!.year}/${_selectedDate!.month}/${_selectedDate!.day}");
-
-                              print(userProvider.user!.fName);
-
 
                              await UserController().updateUser(user).then((onValue){
                                userProvider.changeVal(0 , false);

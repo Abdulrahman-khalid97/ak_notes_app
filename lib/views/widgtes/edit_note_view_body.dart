@@ -3,9 +3,6 @@ import 'package:ak_notes_app/controllers/notes_controller.dart';
 import 'package:ak_notes_app/models/note_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../controllers/firebase_controller.dart';
-import '../constants/collection_name.dart';
 import '../constants/color_name.dart';
 import '../dialogs/snack_bar_dialoge.dart';
 import 'custom_app_bar.dart';

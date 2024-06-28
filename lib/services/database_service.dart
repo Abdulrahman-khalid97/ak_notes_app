@@ -31,7 +31,7 @@ class DatabaseService {
   }
 
   Stream<UserModel> streamUser(String id){
-    return _db.collection(USERS_COLLECTION).doc(id).snapshots().map((snap) => UserModel.frmMap(snap.data()! , snap.id!));
+    return _db.collection(USERS_COLLECTION).doc(id).snapshots().map((snap) => UserModel.frmMap(snap.data()! , snap.id));
   }
 
   Future<void> updateUser(UserModel user) async {
@@ -45,12 +45,22 @@ class DatabaseService {
     return ref.snapshots().map((list)=>
         list.docs.map((doc)=>NoteModel.fromFirestore(doc)).toList());
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> sn(String uid){
+    var ref = _db.collection(USERS_COLLECTION).doc(uid).collection(NOTES_COLLECTION);
+    return ref.snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> snap(String uid){
+    var ref = _db.collection(USERS_COLLECTION).doc(uid).collection(NOTES_COLLECTION);
+    return ref.snapshots();
+  }
    Future<void> storeNote(NoteModel note ){
     return _db.collection(USERS_COLLECTION).doc(AuthController().currentUser!.uid).get().then((snapshots){
 
       snapshots.reference.collection(NOTES_COLLECTION).add(note.toMap());
     }).catchError((onError){
-      print("on error");
+      print("StoreNote : "+onError.toString());
     });
 
   }

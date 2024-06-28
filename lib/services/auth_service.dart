@@ -2,7 +2,6 @@ import 'package:ak_notes_app/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../controllers/user_controller.dart';
-import '../views/constants/collection_name.dart';
 
 class AuthService {
 

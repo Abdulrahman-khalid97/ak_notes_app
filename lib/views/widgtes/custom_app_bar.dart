@@ -35,7 +35,7 @@ class CustomAppBar extends StatelessWidget {
                   break;
                 case 1 :
                   AuthController().signOut();
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>
                   const LoginView()));
 
                   break;

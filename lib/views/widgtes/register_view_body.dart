@@ -30,12 +30,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    final _authController = Provider.of<AuthController>(context);
+    final authController = Provider.of<AuthController>(context);
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
         child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding:
+          const EdgeInsets.symmetric(vertical: 16),
           shrinkWrap: true,
           children: [
             const Image(
@@ -298,8 +299,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           setState(() {
                             loading=true;
                           });
-                          print(_selectedDate!.year);
-                          _authController.createUserWithEmailAndPassword(
+                          authController.createUserWithEmailAndPassword(
                             displayName: userName ,
                              fName: fName! ,
                              lName: lName! ,

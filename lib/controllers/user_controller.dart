@@ -16,27 +16,24 @@ final class UserController  extends ChangeNotifier{
   UserModel _user = UserModel.empty() ;
   bool? _loading=false;
   List<bool> _changed=[false , false , false , false];
-  bool _upLoading=false;
+
 
   void changeVal (int index , bool val){
     _changed[index]=val;
     notifyListeners();
   }
-  bool get upLoading => _upLoading;
 
-  set upLoading(bool value) {
-    _upLoading = value;
-  }
+
 
 
   List<bool> get changed => _changed;
 
-  void initialNewValue(String _fName , String _lName , String _gender , String _age)
+  void initialNewValue(String fName , String lName , String gender , String age)
   {
-    _user.fName=_fName;
-    _user.lName=_lName;
-    _user.gender=_gender;
-    _user.age=_age;
+    _user.fName=fName;
+    _user.lName=lName;
+    _user.gender=gender;
+    _user.age=age;
     notifyListeners();
   }
 

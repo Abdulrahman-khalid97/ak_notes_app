@@ -1,8 +1,5 @@
 
 import 'package:ak_notes_app/controllers/auth_controller.dart';
-import 'package:ak_notes_app/controllers/firebase_controller.dart';
-import 'package:ak_notes_app/models/user_model.dart';
-import 'package:ak_notes_app/services/auth_service.dart';
 import 'package:ak_notes_app/views/login_view.dart';
 import 'package:ak_notes_app/views/notes_view.dart';
 import 'package:ak_notes_app/views/verfication_view.dart';

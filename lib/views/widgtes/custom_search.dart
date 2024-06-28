@@ -1,12 +1,7 @@
-
-import 'dart:collection';
-
 import 'package:ak_notes_app/controllers/notes_controller.dart';
 import 'package:ak_notes_app/models/note_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../controllers/firebase_controller.dart';
 import 'custom_note_item.dart';
 class CustomSearchDelegate extends SearchDelegate {
   @override

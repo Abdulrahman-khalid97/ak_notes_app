@@ -1,6 +1,4 @@
 
-
-import 'package:ak_notes_app/controllers/firebase_controller.dart';
 import 'package:ak_notes_app/controllers/notes_controller.dart';
 import 'package:ak_notes_app/models/note_model.dart';
 import 'package:ak_notes_app/views/dialogs/snack_bar_dialoge.dart';

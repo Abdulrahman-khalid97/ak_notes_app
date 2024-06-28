@@ -1,9 +1,4 @@
-
-
-import 'package:ak_notes_app/controllers/auth_controller.dart';
-import 'package:ak_notes_app/controllers/firebase_controller.dart';
 import 'package:ak_notes_app/controllers/user_controller.dart';
-import 'package:ak_notes_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class ChangePasswordBody extends StatefulWidget {
@@ -32,13 +27,13 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                Center(
+               const Center(
                   child: Text("Update Password" , style: TextStyle(
                       fontSize: 32 ,
                       fontWeight: FontWeight.bold
                   ),),
                 ),
-                SizedBox(height: 50,),
+               const SizedBox(height: 50,),
                 TextFormField(
                   validator: (value){
                     String errorMessage = '';
@@ -154,7 +149,7 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
                        setState(() {
                          loading=false;
                        });
-                       print("Done");
+                       print("Password Updated Successfully");
                      }).catchError((error){
                        print("Error "+error.toString());
                      });
@@ -179,12 +174,12 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
                 )),
                 ElevatedButton(onPressed: (){
                   Navigator.of(context).pop(false);
-                }, child: SizedBox(
-                  child: Row(
+                }, child:const  SizedBox(
+                  child:  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.arrow_back),
-                    const   SizedBox(width: 16,),
+                       SizedBox(width: 16,),
                     Text("Back"),
                   ],
                 )))

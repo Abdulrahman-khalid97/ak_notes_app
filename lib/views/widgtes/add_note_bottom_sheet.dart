@@ -31,13 +31,13 @@ class AddNoteForm extends StatefulWidget {
 class _AddNoteFormState extends State<AddNoteForm> {
   NotesController notesController = NotesController();
   final GlobalKey<FormState> _frmKey = GlobalKey();
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
   String? title , content;
   @override
   Widget build(BuildContext context) {
     return  Form(
       key: _frmKey,
-      autovalidateMode: autovalidateMode,
+      autovalidateMode: autoValidateMode,
       child: Column(
         children:  [
          const SizedBox(
@@ -61,7 +61,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
               _frmKey.currentState!.save();
              // notesController.storeNote(NoteModel(id: null, title: title!, content: content!, date: "", color: 2));
             }else{
-              autovalidateMode= AutovalidateMode.always;
+              autoValidateMode= AutovalidateMode.always;
             }
           },),
          const SizedBox(height: 24,)

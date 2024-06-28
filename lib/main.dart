@@ -1,16 +1,13 @@
 import 'package:ak_notes_app/controllers/auth_controller.dart';
-import 'package:ak_notes_app/controllers/firebase_controller.dart';
 import 'package:ak_notes_app/controllers/notes_controller.dart';
 import 'package:ak_notes_app/controllers/user_controller.dart';
 import 'package:ak_notes_app/firebase_options.dart';
 import 'package:ak_notes_app/services/auth_service.dart';
 import 'package:ak_notes_app/services/database_service.dart';
-
 import 'package:ak_notes_app/views/widget_tree.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'controllers/app_state.dart';
 
 late AppState appState;

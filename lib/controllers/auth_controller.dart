@@ -2,10 +2,8 @@
 
 import 'package:ak_notes_app/controllers/user_controller.dart';
 import 'package:ak_notes_app/services/auth_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-
 import '../models/user_model.dart';
 
 class AuthController extends ChangeNotifier{

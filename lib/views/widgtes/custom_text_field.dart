@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../constants/color_name.dart';
 class CustomTextField extends StatelessWidget {
    CustomTextField({super.key, required this.hint,  this.maxLines=1, this.onSaved,  this.textValue="", this.onChanged});
   final String hint;

@@ -16,9 +16,6 @@ class NoteView extends StatelessWidget {
 
   final User? user = AuthController().currentUser;
 
-  Widget _userId(){
-    return Text(user?.email ?? "User Email");
-  }
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
