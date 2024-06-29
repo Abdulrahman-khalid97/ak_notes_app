@@ -1,4 +1,5 @@
 
+import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/controllers/notes_controller.dart';
 import 'package:ak_notes_app/models/note_model.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class EditNoteViewBodyState extends State<EditNoteViewBody> {
   String? title , content;
   @override
   Widget build(BuildContext context) {
+    AppLocal.init(context);
     final notesController = Provider.of<NotesController>(context);
     return  Scaffold(
       body : Padding(
@@ -31,7 +33,7 @@ class EditNoteViewBodyState extends State<EditNoteViewBody> {
             const SizedBox(
               height: 50,
             ),
-            CustomAppBar(tille: "Edit Note", icon: Icons.check,onIconPressed: (){
+            CustomAppBar(tille: "${AppLocal.loc.edit} ${AppLocal.loc.theNote}", icon: Icons.check,onIconPressed: (){
 
             widget.note!.title=title?? widget.note!.title;
             widget.note!.content=content?? widget.note!.content;
@@ -62,7 +64,7 @@ class EditNoteViewBodyState extends State<EditNoteViewBody> {
                     const SizedBox(
                       height: 30,
                     ),
-                    CustomTextField(hint: "Title",
+                    CustomTextField(hint: AppLocal.loc.title,
                       textValue: widget.note!.title,
                       onSaved: (value){
                         title= value;
@@ -74,7 +76,7 @@ class EditNoteViewBodyState extends State<EditNoteViewBody> {
                     const SizedBox(
                       height: 24,
                     ),
-                    CustomTextField(hint: "content" , maxLines: 5,
+                    CustomTextField(hint: AppLocal.loc.content , maxLines: 5,
                       textValue: widget.note!.content,
                       onSaved: (value){
                         content= value;

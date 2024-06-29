@@ -1,4 +1,7 @@
+
+import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/controllers/user_controller.dart';
+import 'package:ak_notes_app/views/constants/font_style.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class ChangePasswordBody extends StatefulWidget {
@@ -17,7 +20,7 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
   @override
   Widget build(BuildContext context) {
     final userController = Provider.of<UserController>(context , listen:  true);
-
+    AppLocal.init(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -27,11 +30,8 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
             child: ListView(
               shrinkWrap: true,
               children: [
-               const Center(
-                  child: Text("Update Password" , style: TextStyle(
-                      fontSize: 32 ,
-                      fontWeight: FontWeight.bold
-                  ),),
+                Center(
+                  child: Text("${AppLocal.loc.update} ${AppLocal.loc.password}", style: kTitle1Style),
                 ),
                const SizedBox(height: 50,),
                 TextFormField(
@@ -168,19 +168,19 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
                           height: 24,
                           child:  CircularProgressIndicator()): const Icon(Icons.password) ,
                       const   SizedBox(width: 16,),
-                      const Text("Update")
+                       Text(AppLocal.loc.update)
                     ],
                   ),
                 )),
                 ElevatedButton(onPressed: (){
                   Navigator.of(context).pop(false);
-                }, child:const  SizedBox(
+                }, child:  SizedBox(
                   child:  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.arrow_back),
-                       SizedBox(width: 16,),
-                    Text("Back"),
+                   const Icon(Icons.arrow_back),
+                       const SizedBox(width: 16,),
+                    Text(AppLocal.loc.cancel),
                   ],
                 )))
               ],

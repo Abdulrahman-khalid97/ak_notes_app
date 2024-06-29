@@ -1,15 +1,20 @@
 
+import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/controllers/app_state.dart';
 import 'package:ak_notes_app/controllers/user_controller.dart';
 import 'package:ak_notes_app/models/user_model.dart';
+import 'package:ak_notes_app/setting_provider.dart';
 import 'package:ak_notes_app/views/constants/enum/theme_enum.dart';
+import 'package:ak_notes_app/views/constants/font_style.dart';
 import 'package:ak_notes_app/views/widgtes/change_password_body.dart';
+import 'package:ak_notes_app/views/widgtes/language_view_body.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 
+import '../language_view.dart';
 import 'custom_app_bar.dart';
 class SettingsViewBody extends StatefulWidget {
   const SettingsViewBody({super.key});
@@ -24,8 +29,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   UserModel user= UserModel.empty();
   String? gender , fName , lName ;
   String? age;
-  //bool loading=false;
-  //List<bool> changed=[false , false , false , false];
   final GlobalKey<FormState> _frmKey = GlobalKey();
   final GlobalKey<FormState> _updateFrmKey = GlobalKey();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
@@ -52,8 +55,8 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   Widget build(BuildContext context) {
 
     final userProvider = Provider.of<UserController>(context, listen: true);
-    final appState = Provider.of<AppState>(context , listen: true);
-
+    final setting = Provider.of<SettingProvider>(context , listen: true);
+    AppLocal.init(context);
     return
       ChangeNotifierProvider(
         create: (context)=>userProvider,
@@ -65,7 +68,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: CustomAppBar(tille: "Settings",icon: Icons.arrow_right_alt_outlined , onIconPressed: (){
+              child: CustomAppBar(tille: AppLocal.loc.settings,icon: Icons.arrow_right_alt_outlined , onIconPressed: (){
                 Navigator.pop(context);
               },),
             ) ,
@@ -113,7 +116,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                 mainAxisAlignment: MainAxisAlignment.start ,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const Text("First Name", style: TextStyle(fontWeight: FontWeight.bold )),
+                                   Text(AppLocal.loc.fname, style: kTitle2Style),
 
                                   Selector<UserController , UserModel>(builder: (ctx , value ,child) {
 
@@ -124,7 +127,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                                   .of(context)
                                                   .size
                                                   .width / 3,
-                                              child: const Text("Downloading..."));
+                                              child:  Text(AppLocal.loc.downloading));
                                         }
                                         else {
                                           fName = value.fName;
@@ -178,13 +181,13 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                   mainAxisAlignment: MainAxisAlignment.start ,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text("Last Name", style: TextStyle(fontWeight: FontWeight.bold),),
+                                     Text(AppLocal.loc.lname, style: kTitle2Style),
                                     Selector<UserController , UserModel>(builder: (ctx , value ,child){
 
                                       if(value.lName==null){
                                         return  SizedBox(
                                             width: MediaQuery.of(context).size.width / 3,
-                                            child:const Text("Downloading..."));
+                                            child: Text(AppLocal.loc.lname));
                                       }
                                       else {
                                         lName=value.lName;
@@ -246,16 +249,16 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                               padding: const EdgeInsets.symmetric(vertical: 16 , horizontal: 24),
                               child: SizedBox(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start ,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center ,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text("Gender", style: TextStyle(fontWeight: FontWeight.bold)),
+                                     Text(AppLocal.loc.gender, style: kTitle2Style),
                                     Selector<UserController , UserModel>(builder: (ctx , value ,child){
 
                                       if(value.gender==null){
                                         return  SizedBox(
                                             width: MediaQuery.of(context).size.width / 3,
-                                            child:const Text("Downloading..."));
+                                            child: Text(AppLocal.loc.downloading));
                                       }
                                       else {
 
@@ -322,7 +325,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                   mainAxisAlignment: MainAxisAlignment.start ,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text("Age", style: TextStyle(fontWeight: FontWeight.bold),),
+                                     Text(AppLocal.loc.bof, style: kTitle2Style),
                                     Selector<UserController , String>(builder: (ctx , value ,child){
 
 
@@ -333,7 +336,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                        age="null";
                                        return  SizedBox(
                                            width: MediaQuery.of(context).size.width / 3,
-                                           child:const Text("Downloading..."));
+                                           child: Text(AppLocal.loc.downloading));
                                      }
                                      else {
                                        _selectedDate=formatter.parse(value);
@@ -377,34 +380,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                            ],
 
                                          ),
-                                         // TextFormField(
-                                         //   maxLength: 2,
-                                         //
-                                         //   keyboardType: TextInputType.number,
-                                         //   initialValue: value == "null" ? 0
-                                         //       .toString() : value,
-                                         //   textAlign: TextAlign.center,
-                                         //   validator: (value) {
-                                         //     if (value?.isEmpty ?? true) {
-                                         //       return '* required';
-                                         //     }
-                                         //     else {
-                                         //       return null;
-                                         //     }
-                                         //   },
-                                         //   onChanged: (value) {
-                                         //     if (value != age) {
-                                         //       changed[3] = true;
-                                         //       age = int.parse(value);
-                                         //     } else {
-                                         //       changed[3] = false;
-                                         //       age=int.parse(value);
-                                         //     }
-                                         //   },
-                                         //   onSaved: (value){
-                                         //     age=int.parse(value!);
-                                         //   },
-                                         // ),
+
                                        );
                                      }
 
@@ -423,7 +399,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                       ) ,
                       InkWell(
                         onTap: (){
-                          _showAlertData(title:  "Email", userData: UserController().user!);
+                          _showAlertData(title:  AppLocal.loc.email, userData: UserController().user!);
 
                         },
                         child: Padding(
@@ -433,7 +409,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text("Email" , style: TextStyle(fontWeight: FontWeight.bold),),
+                                 Text(AppLocal.loc.email , style: kTitle2Style),
                                 Text(FirebaseAuth.instance.currentUser!.email.toString(), style: TextStyle(
                                     color: ThemeData.dark().primaryColorLight
                                 ),)
@@ -453,7 +429,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                               const Text("Password" , style: TextStyle(fontWeight: FontWeight.bold),),
+                                Text(AppLocal.loc.password , style: kTitle2Style),
                                 Text("***********************", style: TextStyle(
                                     color: ThemeData.dark().primaryColorLight
                                 ),)
@@ -463,10 +439,11 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                         ),
                       ) ,
                       InkWell(onTap: (){
-                        _selectedOption= appState.initialIsDarkMode?0:1;
+                        _selectedOption= setting.isDarkMode!?0:1;
                          _themeEnumData= _selectedOption==0?ThemeEnum.dark:ThemeEnum.light;
                         _showAlertTheme(onPressed: (){
-                          appState.toggleTheme(_selectedOption==0?true: false);
+                          setting.toggleTheme(_selectedOption==0?true:false);
+                         // appState.toggleTheme(_selectedOption==0?true: false);
                           // Do something with the selected option
                           Navigator.of(context).pop();
                         } , onLightChange:
@@ -481,7 +458,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                             _selectedOption=0;
                           });
                         },);
-                       // appState.toggleTheme(!appState.initialIsDarkMode);
                       },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16 , horizontal: 24),
@@ -490,10 +466,30 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                               const Text("Theme" , style:  TextStyle(fontWeight: FontWeight.bold),),
-                                  Text(appState.initialIsDarkMode?"Dark":"Light", style: TextStyle(
+                                Text(AppLocal.loc.theme, style: kTitle2Style),
+                                  Text(setting.isDarkMode!?AppLocal.loc.dark:AppLocal.loc.light, style: TextStyle(
                                             color: ThemeData.dark().primaryColorLight
                                         ),)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ) ,
+                      InkWell(onTap: (){
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const LanguageView()));
+                      },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16 , horizontal: 24),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                 Text(AppLocal.loc.language , style:  kTitle2Style),
+                                Text(setting.local==AppLocal.loc.ar?AppLocal.loc.langAR:AppLocal.loc.langEN, style: TextStyle(
+                                    color: ThemeData.dark().primaryColorLight
+                                ),)
                               ],
                             ),
                           ),
@@ -507,7 +503,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                           width: MediaQuery.of(context).size.width/2,
                           child:   ElevatedButton(onPressed: ()async {
                             if(_frmKey.currentState!.validate()){
-
                               userProvider.loading=true;
                               _frmKey.currentState!.save();
                               userProvider.initialNewValue(fName!, lName!, gender!,
@@ -584,7 +579,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
-            title: const Text("Select Option"),
+            title:  Text(AppLocal.loc.chooseOption),
             content: StatefulBuilder(
               builder: (BuildContext context , void Function(void Function()) setState){
                 return Column(
@@ -603,7 +598,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                             value: ThemeEnum.dark,
                             groupValue: themeEnumData,
                           ) ,
-                          const Text("Dark")
+                           Text(AppLocal.loc.dark)
                         ],
                       ),
                     ) ,
@@ -621,7 +616,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                             value: ThemeEnum.light,
                             groupValue: themeEnumData,
                           ) ,
-                          const Text("Light")
+                           Text(AppLocal.loc.light)
                         ],
                       ),
                     )
@@ -634,11 +629,11 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const  Text('Cancel'),
+                child:   Text(AppLocal.loc.cancel),
               ),
               ElevatedButton(
                 onPressed:onPressed,
-                child: const Text('OK'),
+                child:  Text(AppLocal.loc.ok),
               ),
             ],
           );
@@ -685,11 +680,11 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const  Text('Cancel'),
+          child:   Text(AppLocal.loc.cancel),
         ),
         ElevatedButton(
           onPressed:(){},
-          child: const Text('OK'),
+          child:  Text(AppLocal.loc.ok),
         ),
       ],
     ));
@@ -701,6 +696,9 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
       initialDate: DateTime.now(),
       firstDate: DateTime(1980),
       lastDate: DateTime(2025),
+      cancelText: AppLocal.loc.cancel,
+      confirmText: AppLocal.loc.ok
+
     );
 
     if (picked != null) {

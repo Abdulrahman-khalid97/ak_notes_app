@@ -1,4 +1,5 @@
 
+import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/controllers/notes_controller.dart';
 import 'package:ak_notes_app/models/note_model.dart';
 import 'package:ak_notes_app/views/dialogs/snack_bar_dialoge.dart';
@@ -37,6 +38,7 @@ class _AddNoteFormState extends State<_AddNoteForm> {
   @override
   Widget build(BuildContext context) {
     final notesController = Provider.of<NotesController>(context);
+    AppLocal.init(context);
     return
       Scaffold(
         body : Padding(
@@ -46,7 +48,7 @@ class _AddNoteFormState extends State<_AddNoteForm> {
               const SizedBox(
                 height: 50,
               ),
-              CustomAppBar(tille: "Add Note", icon: Icons.arrow_right_alt_outlined,onIconPressed: (){
+              CustomAppBar(tille: "${AppLocal.loc.add} ${AppLocal.loc.note}", icon: Icons.arrow_right_alt_outlined,onIconPressed: (){
                 Navigator.pop(context);
               },) ,
               Expanded(
@@ -58,7 +60,7 @@ class _AddNoteFormState extends State<_AddNoteForm> {
                   const SizedBox(
                     height: 30,
                   ),
-                  CustomTextField(hint: "Title",
+                  CustomTextField(hint: AppLocal.loc.title,
                     onSaved: (value){
                       title= value;
                     },)
@@ -66,7 +68,7 @@ class _AddNoteFormState extends State<_AddNoteForm> {
                   const SizedBox(
                     height: 24,
                   ),
-                  CustomTextField(hint: "Content" , maxLines: 5,
+                  CustomTextField(hint: AppLocal.loc.content , maxLines: 5,
                     onSaved: (value){
                       content= value;
                     },) ,

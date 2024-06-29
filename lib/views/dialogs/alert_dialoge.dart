@@ -1,23 +1,25 @@
 
+import 'package:ak_notes_app/app_local.dart';
 import 'package:flutter/material.dart';
 class AlertDialoge{
 
 
   showAlertDialog(BuildContext context) {
+    AppLocal.init(context);
     return showDialog(
       barrierDismissible: false,
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Item'),
-        content: const  Text('Are you sure you want to delete this item?'),
+        title:  Text("${AppLocal.loc.delete} ${AppLocal.loc.note}"),
+        content:   Text(AppLocal.loc.deleteNoteMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
+            child:  Text(AppLocal.loc.cancel),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Delete'),
+            child: Text(AppLocal.loc.delete),
           ),
         ],
       ),

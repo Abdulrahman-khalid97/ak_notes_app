@@ -1,4 +1,6 @@
+import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/controllers/auth_controller.dart';
+import 'package:ak_notes_app/views/constants/font_style.dart';
 import 'package:ak_notes_app/views/login_view.dart';
 import 'package:ak_notes_app/views/settings_view.dart';
 import 'package:flutter/material.dart';
@@ -16,18 +18,17 @@ class CustomAppBar extends StatelessWidget {
   final void Function()? onThemeToggled;
   @override
   Widget build(BuildContext context) {
+    AppLocal.init(context);
     return Row(
       children: [
-        Text(tille , style: const TextStyle(
-          fontSize: 28
-        ),),
+        Text(tille , style: kTitle1Style),
         const Spacer(),
         Row(
           children: [
-            tille=="Note"? IconButton(onPressed: onThemeToggled, icon: !isDark? const Icon(Icons.dark_mode): const Icon(Icons.light_mode)): Container(),
+            tille==AppLocal.loc.note? IconButton(onPressed: onThemeToggled, icon: !isDark? const Icon(Icons.dark_mode): const Icon(Icons.light_mode)): Container(),
             const SizedBox(width: 8,),
              CustomIcon(icon: icon, onIconPressed: onIconPressed,),
-            tille=="Note"? PopupMenuButton(
+            tille==AppLocal.loc.note? PopupMenuButton(
               onSelected: (item){
               switch(item){
                 case 0 :
@@ -41,9 +42,9 @@ class CustomAppBar extends StatelessWidget {
                   break;
               }
               },
-                itemBuilder: (context)=>const [
-               PopupMenuItem( value: 0,child: Text("Settings") ,) ,
-                    PopupMenuItem( value: 1,child: Text("SignOut") ,)
+                itemBuilder: (context)=> [
+               PopupMenuItem( value: 0,child: Text(AppLocal.loc.settings) ,) ,
+                    PopupMenuItem( value: 1,child: Text(AppLocal.loc.signOut) ,)
             ]) : Container()
              ],
         )

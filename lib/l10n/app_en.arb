@@ -1,5 +1,39 @@
 
 {
-    "language" : "Engish",
-    "note": "Note"
+
+    "language" : "language",
+    "title" : "Title",
+    "content" : "Content",
+     "add" : "add",
+     "ok":"Ok" ,
+     "cancel":"Cancel",
+     "chooseOption":"Choose Option",
+     "update" : "update",
+     "edit":"Edit",
+      "theNote":"Note",
+      "delete" : "delete",
+    "downloading":"Downloading...",
+       "ar" : "ar",
+       "en" : "en",
+       "langAR": "Arabic",
+       "langEN":"English" ,
+       "languageViewTitle":"Choose Your Language",
+       "settings":"Settings" ,
+       "gender" :"Gender" ,
+       "age": "Age" ,
+       "bof":"Birth Day" ,
+       "email":"Email",
+       "password":"Password",
+       "theme":"Theme",
+        "dark":"Dark",
+         "light":"Light",
+       "logIn":"login" ,
+       "register" : "Register" ,
+       "fname" :"First Name"  ,
+       "lname":"Last Name" ,
+       "note": "Note" ,
+       "signOut" : "SignOut" ,
+       "deleteNoteMessage":"Are you sure you want to delete this item?"
+
+
 }
