@@ -15,8 +15,14 @@ final class UserController  extends ChangeNotifier{
 
   UserModel _user = UserModel.empty() ;
   bool? _loading=false;
-   List<bool> _changed=[false , false , false , false];
+  List<bool> _changed=[false , false , false , false];
+  List<bool> _update=[false , false , false , false];
 
+  List<bool> get update => _update;
+  void updateVal (int index , bool val){
+    _update[index]=val;
+    notifyListeners();
+  }
 
   void changeVal (int index , bool val){
     _changed[index]=val;

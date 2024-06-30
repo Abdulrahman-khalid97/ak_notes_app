@@ -37,7 +37,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
    user.email= FirebaseAuth.instance.currentUser!.email;
    user.id =FirebaseAuth.instance.currentUser!.uid;
    user.userName= FirebaseAuth.instance.currentUser!.displayName!;
-
   }
 
 
@@ -57,6 +56,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
     final setting = Provider.of<SettingProvider>(context , listen: true);
     AppLocal.init(context);
     userProvider.clearValue();
+
     return
       ChangeNotifierProvider(
         create: (context)=>userProvider,
@@ -116,10 +116,8 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                 mainAxisAlignment: MainAxisAlignment.start ,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                   Text(AppLocal.loc.fname, style: kTitle2Style),
-
+                                  Text(AppLocal.loc.fname, style: kTitle2Style),
                                   Selector<UserController , UserModel>(builder: (ctx , value ,child) {
-
 
                                         if (value.fName == null) {
                                           return SizedBox(
@@ -284,17 +282,17 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                             onSaved: (value) {
                                               gender = value;
                                             },
-                                            items: const [
+                                            items:  [
                                               DropdownMenuItem(
                                                   value: "No Value",
-                                                  child: Text("No Value")),
+                                                  child: Text(AppLocal.loc.noValue)),
                                               DropdownMenuItem(value: "Male",
-                                                  child: Text("Male")),
+                                                  child: Text(AppLocal.loc.male)),
                                               DropdownMenuItem(
                                                   value: "Female",
-                                                  child: Text("Female")),
+                                                  child: Text(AppLocal.loc.female)),
                                             ],
-                                            hint: const Text("Gender"),
+                                            hint:  Text(AppLocal.loc.gender),
                                             onChanged: (val) {
                                               if (user.gender != val) {
                                                 userProvider.changeVal(2 , true);
@@ -327,58 +325,72 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                      Text(AppLocal.loc.bof, style: kTitle2Style),
-                                    Selector<UserController , String>(builder: (ctx , value ,child){
+                                    Selector<UserController , UserModel>(builder: (ctx , value ,child){
 
 
-
-                                     if(value=="null"){
+                                     if(value.age==null || value.age=="null"){
                                        user.age=0.toString();
-                                       age="null";
+                                       age=null;
                                        return  SizedBox(
                                            width: MediaQuery.of(context).size.width / 3,
                                            child: Text(AppLocal.loc.downloading));
                                      }
                                      else {
-                                       _selectedDate=formatter.parse(value);
-                                        age =formatter.format(_selectedDate!);
+
+                                        age =formatter.format(formatter.parse(value!.age!));
+                                        user.age=value.age;
                                        return SizedBox(
                                          width: MediaQuery
                                              .of(context)
                                              .size
                                              .width / 3,
-                                         child:DropdownButton<String>(
+                                         child:DropdownButtonFormField(
+                                           // onTap: () async{
+                                           //   // userProvider.changeVal(3 , true);
+                                           //   // await _showDatePicker().then((onValue){
+                                           //   //
+                                           //   //   if (formatter.format(formatter.parse(user.age!)) != formatter.format(_selectedDate!)) {
+                                           //   //
+                                           //   //     setState(() {
+                                           //   //       age = formatter.format(_selectedDate!)??"0000";
+                                           //   //     });
+                                           //   //     userProvider.changeVal(3 , true);
+                                           //   //     userProvider.age=age!;
+                                           //   //     print(userProvider.changed[3]);
+                                           //   //
+                                           //   //   } else {
+                                           //   //     print("else");
+                                           //   //     userProvider.changeVal(3 , false);
+                                           //   //    // age=user.age;
+                                           //   //   }
+                                           //   // });
+                                           //
+                                           // }
+
+                                           alignment: Alignment.center,
                                            value: age,
-                                           hint: const Text('Select a date'),
-                                           onTap: ()  async{
-                                            await  _showDatePicker();
-                                            if(formatter.format(_selectedDate!) != formatter.format(formatter.parse(age!))) {
-
-                                              age=formatter.format(_selectedDate!);
-                                              print(age);
-                                              userProvider.changeVal(3 , true);
-
-                                            }
-                                            else{
-                                              age=userProvider.user!.age;
-                                              userProvider.changeVal(3 , false);
-                                            }
+                                           validator: (value) {
+                                             if (value?.isEmpty ?? true) {
+                                               return '* required';
+                                             }
+                                             else {
+                                               return null;
+                                             }
                                            },
-                                           onChanged: (String? newValue) {
-                                             // No-op, the date is selected via the date picker
+                                           onSaved: (value) {
+                                             age = value;
                                            },
-                                           items: [
-                                             if(_selectedDate!=null)
-                                               DropdownMenuItem(
-                                                 value: formatter.format(formatter.parse(age!)),
-                                                 child: Text(age.toString()),
-                                               ),
-                                             if(_selectedDate==null)
-                                             const DropdownMenuItem(
-                                               value: null,
-                                               child: Text('Select a date'),
-                                             ),
-
+                                           items:  [
+                                             DropdownMenuItem(value: age!,
+                                                 child: Text(age!)),
+                                             if(age==null)
+                                             DropdownMenuItem(value: null,
+                                                 child: Text(null!)),
                                            ],
+                                           hint:  Text(AppLocal.loc.age),
+                                           onChanged: (val) {
+
+                                           },
 
                                          ),
 
@@ -389,7 +401,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                     },
                                         selector: (ctx , firebase){
                                           // user.fetchUserData(FirebaseAuth.instance.currentUser!.uid);
-                                          return firebase.user!.age.toString();
+                                          return firebase.user!;
                                         })
                                   ],
                                 ),
@@ -400,7 +412,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                       ) ,
                       InkWell(
                         onTap: (){
-                          _showAlertData(title:  AppLocal.loc.email, userData: UserController().user!);
+                          _showAlertData(title:  AppLocal.loc.email, userData: userProvider.user!);
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16 , horizontal: 24),
@@ -495,10 +507,10 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                         ),
                       ) ,
 
-                      const SizedBox(height: 50,),
+                      const SizedBox(height: 8 ,),
                       Consumer<UserController>(builder: (context , provider , child){
                         if(provider.changed[0] || provider.changed[1] || provider.changed[2]|| provider.changed[3]){
-                          print(provider.changed[1]);
+                          print(provider.changed[3].toString()+"jnjkn");
                           return Center(
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width/2,
@@ -558,7 +570,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                           return const SizedBox();
                         }
                       }),
-
+                      const SizedBox(height: 50,),
 
                     ],
                   ),
@@ -648,16 +660,17 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
       barrierDismissible: false,
         context: context, builder: (context)=>
     AlertDialog(
-      title:   Text("Update $title"),
+      title:   Text("${AppLocal.loc.update} $title"),
       content:Form(
         key: _updateFrmKey,
         child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextFormField(
+            enabled: false,
             initialValue: title=="First Name"?userData.fName
                 : title=="Last Name"? userData.lName
-                :title=="Email"?FirebaseAuth.instance.currentUser!.email.toString(): title=="Gender"?userData.gender
+                :title==AppLocal.loc.email?FirebaseAuth.instance.currentUser!.email.toString(): title=="Gender"?userData.gender
                 :userData.age.toString(),
             keyboardType: title=="Age"? TextInputType.number:TextInputType.number,
             validator: (value){
