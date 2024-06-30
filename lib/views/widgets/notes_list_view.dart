@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/controllers/firebase_controller.dart';
 import 'package:ak_notes_app/models/note_model.dart';
 import 'package:ak_notes_app/services/database_service.dart';
@@ -30,7 +31,7 @@ class NotesListView extends StatelessWidget {
         builder: (context , notesProvider , child){
           if(notesProvider.notes!.isEmpty){
             return Center(
-              child: Text("There is no data yet"),
+              child: Text(AppLocal.loc.noNotes),
             );
           }
           else{
@@ -49,7 +50,6 @@ class NotesListView extends StatelessWidget {
                       key: Key('note-${notesProvider.notes![index].id}-$index'),
                       child: NoteItem(note: notesProvider.notes![index], deleteEvent: () {}),
                       confirmDismiss: (direction) async {
-                        print( notesProvider.notes![index].id);
                         bool shouldDismiss = await AlertDialoge()
                             .showAlertDialog(context);
                         return shouldDismiss ?? false;
@@ -61,7 +61,16 @@ class NotesListView extends StatelessWidget {
                               bgColor: Colors.red,
                               messageColor: Colors.white,
                               context,
-                              message: "Have deleted Successfully");
+                              message: AppLocal.loc.deletedSuccessfully);
+                        }).catchError((onError){
+                          // SnackBarDialoge.showSnackBar(
+                          //
+                          //     icon: Icons.error,
+                          //     bgColor: Colors.red,
+                          //     messageColor: Colors.white,
+                          //     context,
+                          //     message: "${AppLocal.loc.error} : ${onError.hashCode}");
+
                         });
 
                       },

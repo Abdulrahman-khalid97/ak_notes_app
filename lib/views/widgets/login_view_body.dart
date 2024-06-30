@@ -1,14 +1,8 @@
 
+import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/services/auth_service.dart';
-import 'package:ak_notes_app/views/notes_view.dart';
-import 'package:ak_notes_app/views/register_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../controllers/animtion_controller.dart';
-import '../../controllers/auth_controller.dart';
-import '../../controllers/firebase_controller.dart';
+import '../../routes/routes.dart';
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
 
@@ -34,7 +28,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   }
   @override
   Widget build(BuildContext context) {
-  //  final _firebaseController = Provider.of<FirebaseController>(context);
+  AppLocal.init(context);
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -65,11 +59,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                               RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
                               bool isValidEmail = emailRegex.hasMatch(value.toString());
                               if(!isValidEmail){
-                                return 'This is Invalid Email';
+                                return AppLocal.loc.inValidEmail;
                               }
                              else if(value?.isEmpty ?? true)
                               {
-                                return 'Plz... fill field with value';
+                                return AppLocal.loc.inValidEmail;
                               }
                               else{
                                 return null;
@@ -80,13 +74,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             },
                             autocorrect: true,
                             decoration: InputDecoration(
-                              label: const Text("Email"),
+                              label: Text(AppLocal.loc.email),
                               border:  OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8)
                               ) ,
                               // enabledBorder: fieldBorder(),
                               //focusedBorder: fieldBorder( kPrimaryColor),
-                              hintText: "Enter Your Email",
+                              hintText: AppLocal.loc.email,
                               // border:fieldBorder(),
                             ),
                           ),
@@ -96,7 +90,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
                                if(value?.isEmpty ?? true)
                               {
-                                return 'Plz... fill field with value';
+                                return AppLocal.loc.required;
                               }
                               else{
                                 return null;
@@ -108,7 +102,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             autocorrect: true,
                             obscureText: passVisibility,
                             decoration: InputDecoration(
-                              label: const Text("Password"),
+                              label:  Text(AppLocal.loc.password),
                               suffixIcon: IconButton(
                                 onPressed: (){
                                   setState(() {
@@ -120,7 +114,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                               border:  OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8)
                               ) ,
-                              hintText: "Enter Your Password",
+                              hintText: AppLocal.loc.password,
 
                             ),
                           ) ,
@@ -135,20 +129,20 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                                setState(() {
                                  loading=false;
                                });
-                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NoteView()));
-                              }).catchError((error){
+                               Navigator.popAndPushNamed(context, RouteManager.homeView);
+                                   }).catchError((error){
                                 setState(() {
                                   loading=false;
                                 });
 
                                 showDialog(context: context, builder: (context) => AlertDialog(
                                   icon: const Icon(Icons.error , size: 48,),
-                                  title: const Text('Error'),
+                                  title:  Text(AppLocal.loc.error),
                                   content: Text(error.toString() , textAlign: TextAlign.center,),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.of(context).pop(false),
-                                      child: const  Text('Cancel'),
+                                      child:   Text(AppLocal.loc.cancel),
                                     ),
                                   ],
                                 ),);
@@ -169,7 +163,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                                     height: 24,
                                     child:  CircularProgressIndicator()): const Icon(Icons.login) ,
                                 const SizedBox(width: 24,),
-                              const  Text("Login")
+                                Text(AppLocal.loc.logIn)
                               ],
                             ),
                           )) ,
@@ -177,19 +171,21 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text("Haven't an account ? ") ,
-                              InkWell(
-                                onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const RegisterView()));
+                               Text(AppLocal.loc.haveNotAnAccount) ,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(
+                                  onTap: (){
+                                    Navigator.popAndPushNamed(context, RouteManager.registerView);
 
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterView()));
-                                },
-                                child: const Text("Create an account" ,
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      decoration: TextDecoration.underline ,
-                                      decorationColor: Colors.blue
-                                  ),),
+                                    },
+                                  child:  Text(AppLocal.loc.createAnAccount ,
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        decoration: TextDecoration.underline ,
+                                        decorationColor: Colors.blue
+                                    ),),
+                                ),
                               )
                             ],)
                         ],

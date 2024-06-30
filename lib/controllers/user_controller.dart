@@ -15,7 +15,7 @@ final class UserController  extends ChangeNotifier{
 
   UserModel _user = UserModel.empty() ;
   bool? _loading=false;
-  List<bool> _changed=[false , false , false , false];
+   List<bool> _changed=[false , false , false , false];
 
 
   void changeVal (int index , bool val){
@@ -23,6 +23,11 @@ final class UserController  extends ChangeNotifier{
     notifyListeners();
   }
 
+  void clearValue(){
+    _changed= [false , false , false , false];
+     _loading=false;
+    notifyListeners();
+  }
 
 
 
@@ -131,8 +136,10 @@ UserController() {
    Future<void> updateUser(UserModel user) async{
      return await DatabaseService().updateUser(user).then((value){
        _user= user;
+       _loading=false;
        notifyListeners();
      }).catchError((error){
+       _loading=false;
        print("Update User"+error.toString());
      });
   }

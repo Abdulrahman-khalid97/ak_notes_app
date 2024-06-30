@@ -1,20 +1,14 @@
-
 import 'package:ak_notes_app/app_local.dart';
-import 'package:ak_notes_app/controllers/app_state.dart';
 import 'package:ak_notes_app/controllers/user_controller.dart';
 import 'package:ak_notes_app/models/user_model.dart';
 import 'package:ak_notes_app/setting_provider.dart';
 import 'package:ak_notes_app/views/constants/enum/theme_enum.dart';
 import 'package:ak_notes_app/views/constants/font_style.dart';
-import 'package:ak_notes_app/views/widgtes/change_password_body.dart';
-import 'package:ak_notes_app/views/widgtes/language_view_body.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-
-import '../language_view.dart';
+import '../../routes/routes.dart';
 import 'custom_app_bar.dart';
 class SettingsViewBody extends StatefulWidget {
   const SettingsViewBody({super.key});
@@ -40,8 +34,8 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   void initState()  {
     // TODO: implement initState
     super.initState();
-   user.email= FirebaseAuth.instance.currentUser!.email.toString();
-   user.id =FirebaseAuth.instance.currentUser!.uid.toString();
+   user.email= FirebaseAuth.instance.currentUser!.email;
+   user.id =FirebaseAuth.instance.currentUser!.uid;
    user.userName= FirebaseAuth.instance.currentUser!.displayName!;
 
   }
@@ -49,7 +43,12 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
 
 
 
+@override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +56,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
     final userProvider = Provider.of<UserController>(context, listen: true);
     final setting = Provider.of<SettingProvider>(context , listen: true);
     AppLocal.init(context);
+    userProvider.clearValue();
     return
       ChangeNotifierProvider(
         create: (context)=>userProvider,
@@ -151,6 +151,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                               },
                                               onChanged: (value) {
                                                 if (user.fName != value) {
+
                                                 userProvider.changeVal(0 , true);
                                                   fName = value;
                                                 } else {
@@ -210,14 +211,14 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                                 }
                                               },
                                               onChanged: (value) {
-                                                if (lName != value) {
+                                                if (user.lName != value) {
                                                   userProvider.changeVal(1, true);
                                                   lName = value;
 
                                                 }
                                                 else {
                                                   userProvider.changeVal(1 , false);
-                                                  lName=value;
+                                                  lName=user.lName;
                                                 }
                                               },
                                               onSaved: (value){
@@ -254,7 +255,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                   children: [
                                      Text(AppLocal.loc.gender, style: kTitle2Style),
                                     Selector<UserController , UserModel>(builder: (ctx , value ,child){
-
                                       if(value.gender==null){
                                         return  SizedBox(
                                             width: MediaQuery.of(context).size.width / 3,
@@ -271,6 +271,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                               .size
                                               .width / 2) - 48,
                                           child: DropdownButtonFormField(
+                                            alignment: Alignment.center,
                                             value: value.gender,
                                             validator: (value) {
                                               if (value?.isEmpty ?? true) {
@@ -295,7 +296,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                             ],
                                             hint: const Text("Gender"),
                                             onChanged: (val) {
-                                              if (val != gender) {
+                                              if (user.gender != val) {
                                                 userProvider.changeVal(2 , true);
                                                 gender = val;
                                               } else {
@@ -330,7 +331,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
 
 
 
-
                                      if(value=="null"){
                                        user.age=0.toString();
                                        age="null";
@@ -340,25 +340,26 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                      }
                                      else {
                                        _selectedDate=formatter.parse(value);
-                                        age =value;
-
+                                        age =formatter.format(_selectedDate!);
                                        return SizedBox(
                                          width: MediaQuery
                                              .of(context)
                                              .size
                                              .width / 3,
                                          child:DropdownButton<String>(
-                                           value: formatter.format(formatter.parse(value)),
+                                           value: age,
                                            hint: const Text('Select a date'),
                                            onTap: ()  async{
                                             await  _showDatePicker();
-                                            if(formatter.format(_selectedDate!) != formatter.format(formatter.parse(userProvider.user!.age!))) {
+                                            if(formatter.format(_selectedDate!) != formatter.format(formatter.parse(age!))) {
 
-                                              userProvider.age=formatter.format(_selectedDate!);
+                                              age=formatter.format(_selectedDate!);
+                                              print(age);
                                               userProvider.changeVal(3 , true);
 
                                             }
                                             else{
+                                              age=userProvider.user!.age;
                                               userProvider.changeVal(3 , false);
                                             }
                                            },
@@ -366,9 +367,9 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                                              // No-op, the date is selected via the date picker
                                            },
                                            items: [
-
+                                             if(_selectedDate!=null)
                                                DropdownMenuItem(
-                                                 value: formatter.format(formatter.parse(value)),
+                                                 value: formatter.format(formatter.parse(age!)),
                                                  child: Text(age.toString()),
                                                ),
                                              if(_selectedDate==null)
@@ -400,7 +401,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                       InkWell(
                         onTap: (){
                           _showAlertData(title:  AppLocal.loc.email, userData: UserController().user!);
-
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16 , horizontal: 24),
@@ -420,8 +420,8 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                       ) ,
                       InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const ChangePasswordBody()));
-                        },
+                          Navigator.pushNamed(context, RouteManager.updatePasswordView);
+                          },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16 , horizontal:24 ),
                           child: SizedBox(
@@ -476,8 +476,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                         ),
                       ) ,
                       InkWell(onTap: (){
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const LanguageView()));
+                        Navigator.pushNamed(context, RouteManager.changeLangView);
                       },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16 , horizontal: 24),
@@ -497,65 +496,69 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                       ) ,
 
                       const SizedBox(height: 50,),
-                      (userProvider.changed[0] || userProvider.changed[1] || userProvider.changed[2]|| userProvider.changed[3])?
-                      Center(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width/2,
-                          child:   ElevatedButton(onPressed: ()async {
-                            if(_frmKey.currentState!.validate()){
-                              userProvider.loading=true;
-                              _frmKey.currentState!.save();
-                              userProvider.initialNewValue(fName!, lName!, gender!,
-                                  "${_selectedDate!.year}/${_selectedDate!.month}/${_selectedDate!.day}");
+                      Consumer<UserController>(builder: (context , provider , child){
+                        if(provider.changed[0] || provider.changed[1] || provider.changed[2]|| provider.changed[3]){
+                          print(provider.changed[1]);
+                          return Center(
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width/2,
+                              child:   ElevatedButton(onPressed: ()async {
+                                if(_frmKey.currentState!.validate()){
+                                  userProvider.loading=true;
+                                  _frmKey.currentState!.save();
+                                  userProvider.initialNewValue(fName!, lName!, gender!,
+                                      "${_selectedDate!.year}/${_selectedDate!.month}/${_selectedDate!.day}");
 
-                             await userProvider.updateUser(userProvider.user!).then((onValue){
-                               userProvider.changeVal(0 , false);
-                               userProvider.changeVal(1, false);
-                               userProvider.changeVal(2 , false);
-                               userProvider.changeVal(3 , false);
+                                  await provider.updateUser(provider.user!).then((onValue){
+                                    provider.clearValue();
+                                    user=provider.user!;
 
-                               userProvider.loading=false;
+                                  }).catchError((error){
+                                    provider.clearValue();;
+                                    showDialog(context: context, builder: (context) => AlertDialog(
+                                      icon: const Icon(Icons.error , size: 48,),
+                                      title:  Text(AppLocal.loc.error),
+                                      content: Text(error.toString() , textAlign: TextAlign.center,),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () => Navigator.of(context).pop(false),
+                                            child: const Center(
+                                                child:Text("Cancel")
+                                            )
+                                        ),
+                                      ],
+                                    ),);
 
-                              }).catchError((error){
-                               userProvider.loading=false;
-                                showDialog(context: context, builder: (context) => AlertDialog(
-                                  icon: const Icon(Icons.error , size: 48,),
-                                  title: const Text('Error'),
-                                  content: Text(error.toString() , textAlign: TextAlign.center,),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () => Navigator.of(context).pop(false),
-                                      child: const Center(
-                                      child:Text("Cancel")
-                                      )
-                                    ),
+                                  });
+
+                                } else{
+
+                                  autoValidateMode= AutovalidateMode.always;
+
+                                }
+                              }, child:SizedBox(
+                                width: 120,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    userProvider.loading?const SizedBox(
+                                        width:24,
+                                        height: 24,
+                                        child:  CircularProgressIndicator()): const Icon(Icons.save) ,
+                                    const   SizedBox(width: 16,),
+                                    const Text("Save")
                                   ],
-                                ),);
+                                ),
+                              ))  ,
 
-                              });
-
-                            } else{
-
-                              autoValidateMode= AutovalidateMode.always;
-
-                            }
-                          }, child:SizedBox(
-                            width: 120,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                userProvider.loading?const SizedBox(
-                                    width:24,
-                                    height: 24,
-                                    child:  CircularProgressIndicator()): const Icon(Icons.save) ,
-                                const   SizedBox(width: 16,),
-                                const Text("Save")
-                              ],
                             ),
-                          ))  ,
+                          );
+                        }
+                        else{
+                          return const SizedBox();
+                        }
+                      }),
 
-                        ),
-                      ):const SizedBox()
 
                     ],
                   ),

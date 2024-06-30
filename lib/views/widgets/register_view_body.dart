@@ -1,14 +1,12 @@
 
+import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/controllers/auth_controller.dart';
-import 'package:ak_notes_app/services/auth_service.dart';
 import 'package:ak_notes_app/views/login_view.dart';
-import 'package:ak_notes_app/views/notes_view.dart';
-import 'package:ak_notes_app/views/verfication_view.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/firebase_controller.dart';
+import '../../routes/routes.dart';
 class RegisterViewBody extends StatefulWidget {
   const RegisterViewBody({super.key});
 
@@ -30,6 +28,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocal.init(context);
     final authController = Provider.of<AuthController>(context);
     return Scaffold(
       body: Container(
@@ -59,7 +58,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                               validator: (value){
                                 if(value?.isEmpty ?? true)
                                 {
-                                  return  '* required';
+                                  return  AppLocal.loc.required;
                                 }
                                 else{
                                   return null;
@@ -70,13 +69,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                               },
                               autocorrect: true,
                               decoration: InputDecoration(
-                                label: const Text("first name"),
+                                label:  Text(AppLocal.loc.fname),
                                 border:  OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8)
                                 ) ,
                                 // enabledBorder: fieldBorder(),
                                 //focusedBorder: fieldBorder( kPrimaryColor),
-                                hintText: "Enter Your username",
+                                hintText: AppLocal.loc.fname,
                                 // border:fieldBorder(),
                               ),
                             ),
@@ -88,7 +87,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                               validator: (value){
                                 if(value?.isEmpty ?? true)
                                 {
-                                  return '* required';
+                                  return AppLocal.loc.required;
                                 }
                                 else{
                                   return null;
@@ -99,13 +98,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                               },
                               autocorrect: true,
                               decoration: InputDecoration(
-                                label: const Text("last name"),
+                                label: Text(AppLocal.loc.lname),
                                 border:  OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8)
                                 ) ,
                                 // enabledBorder: fieldBorder(),
                                 //focusedBorder: fieldBorder( kPrimaryColor),
-                                hintText: "Enter Your username",
+                                hintText: AppLocal.loc.lname,
                                 // border:fieldBorder(),
                               ),
                             ),
@@ -148,7 +147,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                               validator: (value){
                                 if(value?.isEmpty ?? true)
                                 {
-                                  return  '* required';
+                                  return  AppLocal.loc.required;
                                 }
                                 else{
                                   return null;
@@ -158,7 +157,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                                 DropdownMenuItem(value: "Male",child:  Text("Male") ) ,
                                  DropdownMenuItem(value: "Female",child: Text("Female") ),
                               ],
-                              hint: const Text("Gender"),
+                              hint:  Text(AppLocal.loc.gender),
                               onChanged: (value){
                                 gender=value;
                               },
@@ -176,7 +175,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                         validator: (value){
                           if(value?.isEmpty ?? true)
                           {
-                            return 'Please... Enter Username';
+                            return AppLocal.loc.inValidUserName;
                           }
                           else{
                             return null;
@@ -187,13 +186,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                         },
                         autocorrect: true,
                         decoration: InputDecoration(
-                          label: const Text("username"),
+                          label:  Text(AppLocal.loc.userName),
                           border:  OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)
                           ) ,
                           // enabledBorder: fieldBorder(),
                           //focusedBorder: fieldBorder( kPrimaryColor),
-                          hintText: "Enter Your username",
+                          hintText: AppLocal.loc.userName,
                           // border:fieldBorder(),
                         ),
                       ),
@@ -203,12 +202,12 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
                           bool isValidEmail = emailRegex.hasMatch(value.toString());
                           if(!isValidEmail){
-                            return 'This is Invalid Email';
+                            return AppLocal.loc.inValidEmail;
                           }
                           else
                           if(value?.isEmpty ?? true)
                           {
-                            return 'Please... Enter Email';
+                            return AppLocal.loc.inValidEmail;
                           }
                           else{
                             return null;
@@ -219,13 +218,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                         },
                         autocorrect: true,
                         decoration: InputDecoration(
-                          label: const Text("Email"),
+                          label:  Text(AppLocal.loc.email),
                           border:  OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)
                           ) ,
                           // enabledBorder: fieldBorder(),
                           //focusedBorder: fieldBorder( kPrimaryColor),
-                          hintText: "Enter Your Email",
+                          hintText: AppLocal.loc.email,
                           // border:fieldBorder(),
                         ),
                       ),
@@ -237,28 +236,27 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
 
                             // Password length greater than 6
                             if (value!.length < 6) {
-                              errorMessage +=
-                              'Password must be longer than 6 characters.\n';
+                              errorMessage +="${AppLocal.loc.passwordLonger}\n";
                             }
                             // Contains at least one uppercase letter
                             if (!value.contains(RegExp(r'[A-Z]'))) {
                               errorMessage +=
-                              '• Uppercase letter is missing.\n';
+                              "• ${AppLocal.loc.upperCaseMissing}\n";
                             }
                             // Contains at least one lowercase letter
                             if (!value.toString().contains(RegExp(r'[a-z]'))) {
                               errorMessage +=
-                              '• Lowercase letter is missing.\n';
+                              "• ${AppLocal.loc.lowerCaseMissing}\n";
                             }
                             // Contains at least one digit
                             if (!value.contains(RegExp(r'[0-9]'))) {
-                              errorMessage += '• Digit is missing.\n';
+                              errorMessage +=  "• ${AppLocal.loc.digitMissing}\n";
                             }
                             // Contains at least one special character
                             if (!value.contains(
                                 RegExp(r'[!@#%^&*(),.?":{}|<>]'))) {
                               errorMessage +=
-                              '• Special character is missing.\n';
+                              "• ${AppLocal.loc.specialCharacter}\n";
                             }
                           }
                           if(errorMessage==''){
@@ -276,7 +274,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                         autocorrect: true,
                         obscureText: passVisibility,
                         decoration: InputDecoration(
-                          label: const Text("Password"),
+                          label:  Text(AppLocal.loc.password),
                           suffixIcon: IconButton(
                             onPressed: (){
                               setState(() {
@@ -288,7 +286,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           border:  OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)
                           ) ,
-                          hintText: "Enter Your Password",
+                          hintText: AppLocal.loc.password,
 
                         ),
                       ) ,
@@ -309,19 +307,19 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                              password: password!
                             )
                               .then((value){
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const VerficationView()));
-                          }).catchError((error){
+                                Navigator.popAndPushNamed(context, RouteManager.verificationView);
+                           }).catchError((error){
                             setState(() {
                               loading=false;
                             });
                             showDialog(context: context, builder: (context) => AlertDialog(
                               icon: const Icon(Icons.error , size: 48,),
-                              title: const Text('Error'),
+                              title:  Text(AppLocal.loc.error),
                               content: Text(error.toString() , textAlign: TextAlign.center,),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.of(context).pop(false),
-                                  child: const Text("Cancel")
+                                  child:  Text(AppLocal.loc.cancel)
                                 ),
                               ],
                             ),);
@@ -344,7 +342,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                                 height: 24,
                                 child:  CircularProgressIndicator()): const Icon(Icons.app_registration) ,
                           const   SizedBox(width: 16,),
-                            const Text("Register")
+                             Text(AppLocal.loc.register)
                           ],
                         ),
                       )) ,
@@ -352,18 +350,21 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("Already, Have an account ? ") ,
-                          InkWell(
-                            onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LoginView()));
+                           Text(AppLocal.loc.already) ,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LoginView()));
 
-                            },
-                            child: const Text("Login" ,
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline ,
-                                  decorationColor: Colors.blue
-                              ),),
+                              },
+                              child:  Text(AppLocal.loc.logIn ,
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline ,
+                                    decorationColor: Colors.blue
+                                ),),
+                            ),
                           )
                         ],)
                     ],

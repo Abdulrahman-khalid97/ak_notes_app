@@ -11,6 +11,7 @@ class SnackBarDialoge{
     IconData? icon
   }){
     final snackBar = SnackBar(
+
       padding: const EdgeInsets.only(left: 8 , right: 8 , top: 5 , bottom: 5),
         backgroundColor: bgColor,
         behavior: SnackBarBehavior.floating,
@@ -19,13 +20,15 @@ class SnackBarDialoge{
             Icon(icon??Icons.info_outline) ,
             const SizedBox(width: 16,),
             Text(message , style: TextStyle(color: messageColor),) ,
-            const Spacer() ,
-            TextButton(onPressed: ()=> ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-                child: const  Text('DISMISS' , style: TextStyle(
-              fontWeight: FontWeight.bold
-            ),))
+            // const Spacer() ,
+            // TextButton(onPressed: ()=> ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+            //     child: const  Text('DISMISS' , style: TextStyle(
+            //   fontWeight: FontWeight.bold
+            // ),))
           ],
-        ));
+        ),
+    dismissDirection: DismissDirection.down,
+    );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 

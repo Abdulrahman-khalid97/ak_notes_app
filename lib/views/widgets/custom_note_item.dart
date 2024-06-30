@@ -40,7 +40,7 @@ class NoteItem extends StatelessWidget {
                     child: Row(
                       children: [
                         const Icon(
-                          Icons.star,
+                          Icons.note_outlined,
                           color: Colors.blue,
                           size: 14,
                         ),

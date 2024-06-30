@@ -1,5 +1,5 @@
 
-import 'package:ak_notes_app/views/widgtes/language_view_body.dart';
+import 'package:ak_notes_app/views/widgets/language_view_body.dart';
 import 'package:flutter/material.dart';
 class LanguageView extends StatelessWidget {
   const LanguageView({super.key});

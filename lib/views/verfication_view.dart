@@ -1,6 +1,7 @@
 
 
-import 'package:ak_notes_app/views/widgtes/verification_body_view.dart';
+import 'package:ak_notes_app/views/widgets/verification_body_view.dart';
+
 import 'package:flutter/material.dart';
 
 class VerficationView extends StatelessWidget {

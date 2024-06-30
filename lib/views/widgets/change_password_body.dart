@@ -42,7 +42,7 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
             
                     // Password length greater than 6
                     if (value!.length < 6) {
-                      errorMessage='* Required';
+                      errorMessage=AppLocal.loc.required;
                     }
                     if(errorMessage==''){
                       return null;
@@ -59,7 +59,7 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
                   autocorrect: true,
                   obscureText: oldPassVisibility,
                   decoration: InputDecoration(
-                    label: const Text("Old Password"),
+                    label:  Text(AppLocal.loc.oldPassword),
                     suffixIcon: IconButton(
                       onPressed: (){
                         setState(() {
@@ -71,7 +71,7 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
                     border:  OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8)
                     ) ,
-                    hintText: "Enter Your Old password",
+                    hintText: AppLocal.loc.oldPassword,
             
                   ),
                 ),
@@ -84,27 +84,27 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
                       // Password length greater than 6
                       if (value!.length < 6) {
                         errorMessage +=
-                        'Password must be longer than 6 characters.\n';
+                        '${AppLocal.loc.passwordLonger}\n';
                       }
                       // Contains at least one uppercase letter
                       if (!value.contains(RegExp(r'[A-Z]'))) {
                         errorMessage +=
-                        '• Uppercase letter is missing.\n';
+                        '${AppLocal.loc.upperCaseMissing}\n';
                       }
                       // Contains at least one lowercase letter
                       if (!value.toString().contains(RegExp(r'[a-z]'))) {
                         errorMessage +=
-                        '• Lowercase letter is missing.\n';
+                        '${AppLocal.loc.lowerCaseMissing}\n';
                       }
                       // Contains at least one digit
                       if (!value.contains(RegExp(r'[0-9]'))) {
-                        errorMessage += '• Digit is missing.\n';
+                        errorMessage += '${AppLocal.loc.digitMissing}\n';
                       }
                       // Contains at least one special character
                       if (!value.contains(
                           RegExp(r'[!@#%^&*(),.?":{}|<>]'))) {
                         errorMessage +=
-                        '• Special character is missing.\n';
+                        '${AppLocal.loc.specialCharacter}\n';
                       }
                     }
                     if(errorMessage==''){
@@ -122,7 +122,7 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
                   autocorrect: true,
                   obscureText: newPassVisibility,
                   decoration: InputDecoration(
-                    label: const Text("New Password"),
+                    label:  Text(AppLocal.loc.newPassword),
                     suffixIcon: IconButton(
                       onPressed: (){
                         setState(() {
@@ -134,7 +134,7 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
                     border:  OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8)
                     ) ,
-                    hintText: "Enter Your New password",
+                    hintText: AppLocal.loc.newPassword,
             
                   ),
                 ),
@@ -149,7 +149,7 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
                        setState(() {
                          loading=false;
                        });
-                       print("Password Updated Successfully");
+                       print(AppLocal.loc.updatedSuccessfully);
                      }).catchError((error){
                        print("Error "+error.toString());
                      });

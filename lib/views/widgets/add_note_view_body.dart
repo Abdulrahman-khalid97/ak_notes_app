@@ -90,8 +90,8 @@ class _AddNoteFormState extends State<_AddNoteForm> {
                  bgColor: Colors.green,
                  messageColor: Colors.white,
                  context,
-                 message: successAddedMsg);
-             //Navigator.pop(context);
+                 message: AppLocal.loc.addSuccessfully);
+             Navigator.pop(context);
             }).catchError((error){
 
               SnackBarDialoge.showSnackBar(
@@ -99,7 +99,7 @@ class _AddNoteFormState extends State<_AddNoteForm> {
                   bgColor: Colors.red,
                   messageColor: Colors.white,
                   context,
-                  message: successAddedMsg);
+                  message: "${AppLocal.loc.error} : ${error.hashCode}");
             });
 
             // notesController.storeNote(NoteModel(id: null, title: title!, content: content!, date: "", color: 2));

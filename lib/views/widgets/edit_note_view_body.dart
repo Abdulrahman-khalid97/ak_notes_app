@@ -21,8 +21,12 @@ class EditNoteViewBodyState extends State<EditNoteViewBody> {
   final GlobalKey<FormState> _frmKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title , content;
+
+
   @override
   Widget build(BuildContext context) {
+    title = widget.note!.title;
+    content= widget.note!.content;
     AppLocal.init(context);
     final notesController = Provider.of<NotesController>(context);
     return  Scaffold(
@@ -34,26 +38,32 @@ class EditNoteViewBodyState extends State<EditNoteViewBody> {
               height: 50,
             ),
             CustomAppBar(tille: "${AppLocal.loc.edit} ${AppLocal.loc.theNote}", icon: Icons.check,onIconPressed: (){
+              if(widget.note!.title !=title ||widget.note!.content!=content )
+                {
+                  widget.note!.title=title?? widget.note!.title;
+                  widget.note!.content=content?? widget.note!.content;
 
-            widget.note!.title=title?? widget.note!.title;
-            widget.note!.content=content?? widget.note!.content;
+                  notesController.update(widget.note!).then((value){
+                    SnackBarDialoge.showSnackBar(
+                        icon: Icons.check_circle,
+                        bgColor: Colors.green,
+                        messageColor: Colors.white,
+                        context,
+                        message:AppLocal.loc.updatedSuccessfully);
+                    Navigator.pop(context);
+                  }).catchError((error)=>{
+                    SnackBarDialoge.showSnackBar(
+                        icon: Icons.error,
+                        bgColor: Colors.red,
+                        messageColor: Colors.white,
+                        context,
+                        message: AppLocal.loc.error+" : "+error.hashCode.toString())
+                  });
+                }
+              else{
+                Navigator.of(context).pop();
+              }
 
-              notesController.update(widget.note!).then((value){
-                SnackBarDialoge.showSnackBar(
-                    icon: Icons.check_circle,
-                    bgColor: Colors.green,
-                    messageColor: Colors.white,
-                    context,
-                    message: successAddedMsg);
-                  Navigator.pop(context);
-              }).catchError((error)=>{
-                SnackBarDialoge.showSnackBar(
-                    icon: Icons.error,
-                    bgColor: Colors.red,
-                    messageColor: Colors.white,
-                    context,
-                    message: error.toString())
-              });
             },) ,
             Expanded(
               child: Form(

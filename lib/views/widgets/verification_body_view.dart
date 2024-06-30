@@ -2,9 +2,9 @@
 import 'dart:async';
 
 import 'package:ak_notes_app/controllers/auth_controller.dart';
-import 'package:ak_notes_app/views/notes_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../routes/routes.dart';
 class VerificationBodyView extends StatefulWidget {
   const VerificationBodyView({super.key});
 
@@ -24,8 +24,8 @@ class _VerificationBodyViewState extends State<VerificationBodyView> {
       FirebaseAuth.instance.currentUser?.reload();
       if(FirebaseAuth.instance.currentUser!.emailVerified){
         _timer.cancel();
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NoteView()));
-      }
+        Navigator.popAndPushNamed(context, RouteManager.homeView);
+         }
     });
   }
   @override

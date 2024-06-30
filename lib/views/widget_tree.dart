@@ -38,7 +38,6 @@ class _WidgetTreeState extends State<WidgetTree> {
               if(snapshot.data?.emailVerified==true){
                 return  NoteView();
               }
-
                 return const VerficationView();
 
             }

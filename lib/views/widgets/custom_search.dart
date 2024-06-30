@@ -2,7 +2,7 @@ import 'package:ak_notes_app/controllers/notes_controller.dart';
 import 'package:ak_notes_app/models/note_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'custom_note_item.dart';
+import 'custom_note_search_item.dart';
 class CustomSearchDelegate extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -45,7 +45,7 @@ class CustomSearchDelegate extends SearchDelegate {
           itemCount: fillteredList!.length ,
           itemBuilder: (context, index) {
             if (fillteredList!.isNotEmpty){
-              return NoteItem(note: fillteredList![index], deleteEvent: () {});
+              return CustomNoteSearchItem(note: fillteredList![index], deleteEvent: () {});
             }
 
           }) :   Center(

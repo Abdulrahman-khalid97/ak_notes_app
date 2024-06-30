@@ -1,10 +1,8 @@
 import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/controllers/auth_controller.dart';
 import 'package:ak_notes_app/views/constants/font_style.dart';
-import 'package:ak_notes_app/views/login_view.dart';
-import 'package:ak_notes_app/views/settings_view.dart';
 import 'package:flutter/material.dart';
-
+import '../../routes/routes.dart';
 import 'custom_icon.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -32,12 +30,12 @@ class CustomAppBar extends StatelessWidget {
               onSelected: (item){
               switch(item){
                 case 0 :
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const SettingsView()));
-                  break;
+                  Navigator.of(context).pushNamed(RouteManager.settingView);
+                 break;
                 case 1 :
-                  AuthController().signOut();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>
-                  const LoginView()));
+                  AuthController().signOut().then((value){
+                    Navigator.popAndPushNamed(context, RouteManager.loginView);
+                  });
 
                   break;
               }
