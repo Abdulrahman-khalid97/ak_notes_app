@@ -1,51 +1,54 @@
 
 
-import 'package:ak_notes_app/views/add_note_view.dart';
-import 'package:ak_notes_app/views/change_password_view.dart';
-import 'package:ak_notes_app/views/language_view.dart';
-import 'package:ak_notes_app/views/login_view.dart';
-import 'package:ak_notes_app/views/register_view.dart';
-import 'package:ak_notes_app/views/settings_view.dart';
+import 'package:ak_notes_app/features/auth/presentation/bodies/settings_view_body.dart';
+import 'package:ak_notes_app/features/auth/presentation/pages/setiting_page.dart';
+import 'package:ak_notes_app/features/auth/presentation/pages/verification_page.dart';
+import 'package:ak_notes_app/features/notes/presentation/pages/add_note_page.dart';
+import 'package:ak_notes_app/features/notes/presentation/pages/note_page.dart';
+import '../features/auth/presentation/pages/login_page.dart';
+import '../features/auth/presentation/pages/register_page.dart';
+import '../features/auth/presentation/pages/widget_tree_page.dart';
 
-import 'package:ak_notes_app/views/verfication_view.dart';
+
 import 'package:flutter/material.dart';
-import '../views/notes_view.dart';
-import '../views/widget_tree.dart';
+
+
+
 
 
 class RouteManager{
 
-  static const String homeView="/";
-  static const String loginView="/login";
-  static const String registerView="/register";
-  static const String settingView="/setting";
-  static const String updatePasswordView="/updatePassword";
-  static const String changeLangView="/changeLanguage";
-  static const String widgetTreeView="/widgetTreeView";
-  static const String addNoteView="/addNoteView";
-  static const String verificationView="/verificationView";
+  static const String homePage="/";
+  static const String loginPage="/login";
+  static const String registerPage="/register";
+  static const String settingPage="/setting";
+  static const String updatePasswordPage="/updatePassword";
+  static const String changeLangPage="/changeLanguage";
+  static const String widgetTreePage="/widgetTreeView";
+  static const String addNotePage="/addNotePage";
+  static const String verificationPage="/verificationView";
 
   static Route<dynamic> generateRoute(RouteSettings settings){
 
     switch(settings.name){
-      case widgetTreeView :
+      case widgetTreePage :
         return MaterialPageRoute(builder: (context)=>const WidgetTree());
-      case homeView :
-        return MaterialPageRoute(builder: (context)=> NoteView());
-      case addNoteView :
-        return MaterialPageRoute(builder: (context)=> const AddNoteView());
-      case loginView :
-        return MaterialPageRoute(builder: (context)=>const LoginView());
-      case registerView :
-        return MaterialPageRoute(builder: (context)=>const RegisterView());
-      case verificationView :
-        return MaterialPageRoute(builder: (context)=>const VerficationView());
-      case settingView :
-        return MaterialPageRoute(builder: (context)=>const SettingsView());
-      case updatePasswordView :
-        return MaterialPageRoute(builder: (context)=>const ChangePasswordView());
-      case changeLangView :
-        return MaterialPageRoute(builder: (context)=>const LanguageView());
+      case homePage :
+        return MaterialPageRoute(builder: (context)=> const NotesPage());
+      case addNotePage :
+        return MaterialPageRoute(builder: (context)=> const AddNotePage());
+      case loginPage :
+        return MaterialPageRoute(builder: (context)=>const LoginPage());
+      case registerPage :
+        return MaterialPageRoute(builder: (context)=>const RegisterPage());
+      case verificationPage :
+        return MaterialPageRoute(builder: (context)=>const VerificationPage());
+      case settingPage :
+        return MaterialPageRoute(builder: (context)=>const SettingPage());
+      // case updatePasswordPage :
+      //   return MaterialPageRoute(builder: (context)=>const ChangePasswordView());
+      // case changeLangPage :
+      //   return MaterialPageRoute(builder: (context)=>const LanguageView());
       default :
         throw const FormatException("Error in Route");
 

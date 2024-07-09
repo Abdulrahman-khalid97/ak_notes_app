@@ -6,6 +6,8 @@
      "add" : "إضافة",
      "update" : "تحديث",
      "edit":"تعديل",
+     "serverFailure":"خطأ بالاتصال بالسيرفر",
+     "emptyCached":"لا يوجد اي بيانات بعد",
      "noNotes":"لا يوجد أي ملاحظات ",
      "required":"* هذا الحقل مطلوب",
       "male":"ذكر" ,
@@ -54,5 +56,8 @@
     "lname":"الاسم الاخير" ,
     "note": "ملاحظة",
     "signOut" : "تسجيل الخروج"  ,
-     "deleteNoteMessage":"هل ترغب حقاً في حذف هذه الملاحظة"
+     "deleteNoteMessage":"هل ترغب حقاً في حذف هذه الملاحظة" ,
+       "serverError":"There is some thing wrong , Please try later",
+            "offLineError":"Please , check your internet connection and retry",
+            "unExpectedError":"There is UnExpectedError !"
 }

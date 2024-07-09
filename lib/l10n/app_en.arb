@@ -7,6 +7,8 @@
      "add" : "add",
      "ok":"Ok" ,
      "cancel":"Cancel",
+     "serverFailure":"Server Failure",
+     "emptyCached":"Empty Cached",
      "chooseOption":"Choose Option",
       "required":"* required",
       "male":"Male" ,
@@ -55,7 +57,11 @@
        "lname":"Last Name" ,
        "note": "Note" ,
        "signOut" : "SignOut" ,
-       "deleteNoteMessage":"Are you sure you want to delete this item?"
+       "deleteNoteMessage":"Are you sure you want to delete this item?"   ,
+
+       "serverError":"There is some thing wrong , Please try later",
+       "offLineError":"Please , check your internet connection and retry",
+       "unExpectedError":"There is UnExpectedError !"
 
 
 }
