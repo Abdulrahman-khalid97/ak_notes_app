@@ -2,8 +2,10 @@
 
 import 'dart:async';
 
+import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../routes/routes.dart';
 
@@ -22,9 +24,12 @@ class _VerificationBodyState extends State<VerificationBody> {
     // TODO: implement initState
     super.initState();
    // _auth.sendEmailVerificationEmail();
+    sendVerification();
+  }
+  Future<void> sendVerification() async{
     _timer = Timer.periodic(const Duration(seconds: 3), (timer){
-      FirebaseAuth.instance.currentUser?.reload();
-      if(FirebaseAuth.instance.currentUser!.emailVerified){
+      context.read<AuthenticationProvider>().user!.reload();
+      if(context.read<AuthenticationProvider>().user!.emailVerified){
         _timer.cancel();
         Navigator.popAndPushNamed(context, RouteManager.homePage);
       }
@@ -56,8 +61,7 @@ class _VerificationBodyState extends State<VerificationBody> {
               ,
               const  SizedBox(height:48,),
               TextButton(onPressed: () async{
-                //await _auth.sendEmailVerificationEmail();
-
+                await context.read<AuthenticationProvider>().user!.sendEmailVerification();
               }, child: const Text("Resend Email"))
             ],
           ),

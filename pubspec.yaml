@@ -92,6 +92,10 @@ flutter:
     - assets/images/n.jpg
     - assets/images/note_logo.png
     - assets/images/mail-box.png
+    - assets/images/avatar.png
+    - assets/images/avatar-holder.png
+    - assets/images/user-avatar.png
+    - assets/images/user-avatar1.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

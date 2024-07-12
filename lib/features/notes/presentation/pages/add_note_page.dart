@@ -9,8 +9,9 @@ class AddNotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: AddNotePageBody(),
+    return const SafeArea(
+      child: AddNotePageBody(),
+
     );
   }
 }

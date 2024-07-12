@@ -3,6 +3,7 @@ import 'package:ak_notes_app/app_local.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/error/error_message_filter.dart';
 import '../../../../routes/routes.dart';
 import '../provider/authentication_provider.dart';
 class LoginPageBody extends StatefulWidget {
@@ -13,7 +14,6 @@ class LoginPageBody extends StatefulWidget {
 }
 
 class _LoginPageBodyState extends State<LoginPageBody> {
-  String? errorMessage='';
 
   bool loading=false;
   // bool isLogin = true;
@@ -137,10 +137,11 @@ class _LoginPageBodyState extends State<LoginPageBody> {
                               loading=false;
                             });
 
+                            print(error);
                             showDialog(context: context, builder: (context) => AlertDialog(
                               icon: const Icon(Icons.error , size: 48,),
                               title:  Text(AppLocal.loc.error),
-                              content: Text(error.toString() , textAlign: TextAlign.center,),
+                              content: Text(errorMessage(error)?? "", textAlign: TextAlign.center,),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.of(context).pop(false),
@@ -182,7 +183,7 @@ class _LoginPageBodyState extends State<LoginPageBody> {
 
                               },
                               child:  Text(AppLocal.loc.createAnAccount ,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.blue,
                                     decoration: TextDecoration.underline ,
                                     decorationColor: Colors.blue

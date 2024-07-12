@@ -9,13 +9,13 @@ import '../../../../core/style/text_style.dart';
 import '../../../../routes/routes.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key, required this.icon, this.onIconPressed, this.onThemeToggled,   this.isDark=true, required this.title, required this.onSelected});
+  const CustomAppBar({super.key, required this.icon, this.onIconPressed,  required this.title, required this.onSelected});
 
    final String title;
   final IconData icon;
-  final bool isDark;
+ // final bool isDark;
   final void Function()? onIconPressed;
-  final void Function()? onThemeToggled;
+ // final void Function()? onThemeToggled;
  final void Function(int)? onSelected;
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,6 @@ class CustomAppBar extends StatelessWidget {
         const Spacer(),
         Row(
           children: [
-            IconButton(onPressed: onThemeToggled, icon: !isDark? const Icon(Icons.dark_mode): const Icon(Icons.light_mode)),
-            const SizedBox(width: 8,),
             CustomIcon(icon: icon, onIconPressed: onIconPressed,),
           PopupMenuButton(
                 onSelected: onSelected,
@@ -52,7 +50,7 @@ class CustomAppBarBack extends StatelessWidget {
     AppLocal.init(context);
     return Row(
       children: [
-        Text(AppLocal.loc.note, style: kTitle1Style),
+        Text(title, style: kTitle1Style),
         const Spacer(),
         IconButton(onPressed: (){
           Navigator.pop(context);

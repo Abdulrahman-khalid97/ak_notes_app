@@ -1,7 +1,9 @@
 
 
-import 'package:ak_notes_app/features/auth/presentation/bodies/settings_view_body.dart';
+import 'package:ak_notes_app/features/auth/presentation/bodies/settings_page_body.dart';
+import 'package:ak_notes_app/features/auth/presentation/pages/language_page.dart';
 import 'package:ak_notes_app/features/auth/presentation/pages/setiting_page.dart';
+import 'package:ak_notes_app/features/auth/presentation/pages/update_password_page.dart';
 import 'package:ak_notes_app/features/auth/presentation/pages/verification_page.dart';
 import 'package:ak_notes_app/features/notes/presentation/pages/add_note_page.dart';
 import 'package:ak_notes_app/features/notes/presentation/pages/note_page.dart';
@@ -45,10 +47,10 @@ class RouteManager{
         return MaterialPageRoute(builder: (context)=>const VerificationPage());
       case settingPage :
         return MaterialPageRoute(builder: (context)=>const SettingPage());
-      // case updatePasswordPage :
-      //   return MaterialPageRoute(builder: (context)=>const ChangePasswordView());
-      // case changeLangPage :
-      //   return MaterialPageRoute(builder: (context)=>const LanguageView());
+      case updatePasswordPage :
+        return MaterialPageRoute(builder: (context)=>const UpdatePasswordPage());
+      case changeLangPage :
+        return MaterialPageRoute(builder: (context)=>const LanguagePage());
       default :
         throw const FormatException("Error in Route");
 

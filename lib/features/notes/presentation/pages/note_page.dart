@@ -8,6 +8,8 @@ import 'package:ak_notes_app/features/notes/presentation/widgets/custom_search_d
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/dialogs/snack_bar_dialoge.dart';
+import '../../../../core/error/error_message_filter.dart';
 import '../../../../core/provider_setting.dart';
 import '../../../../core/strings/color.dart';
 import '../../../../routes/routes.dart';
@@ -22,30 +24,32 @@ class NotesPage extends StatelessWidget {
 AppLocal.init(context);
 
 
-    return   Scaffold(
-        body:   Padding(
-          padding:   const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            children: [
-              const  SizedBox(
-                height: 50,
-              ),
-             _buildAppBar(context),
-              const  SizedBox(
-                height: 5,
-              ),
-              const NotesPageBody(),
-            ],
+    return   SafeArea(
+      child: Scaffold(
+          body:   Padding(
+            padding:   const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              children: [
+                const  SizedBox(
+                  height: 16,
+                ),
+               _buildAppBar(context),
+                const  SizedBox(
+                  height: 5,
+                ),
+                const NotesPageBody(),
+              ],
+            ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(onPressed: (){
-          Navigator.of(context).pushNamed(RouteManager.addNotePage);
-        } ,
-
-          backgroundColor: kPrimaryColor,
-          shape: const CircleBorder(),
-          child: const  Icon(Icons.add , color: kWhiteColor,),
-        )
+          floatingActionButton: FloatingActionButton(onPressed: (){
+            Navigator.of(context).pushNamed(RouteManager.addNotePage);
+          } ,
+      
+            backgroundColor: Colors.blueGrey,
+            shape: const CircleBorder(),
+            child: const  Icon(Icons.add , color: kWhiteColor,),
+          )
+      ),
     );
   }
 
@@ -57,10 +61,7 @@ AppLocal.init(context);
         showSearch(
             context: context, delegate: CustomSearchDelegate());
       },
-      icon: Icons.search,onThemeToggled: (){
-      setting.toggleTheme(!setting.isDarkMode!);
-    },
-      isDark: setting.isDarkMode!,
+      icon: Icons.search,
       onSelected: (item) async {
         switch(item){
           case 0 :
@@ -69,7 +70,11 @@ AppLocal.init(context);
           case 1 :
             await context.read<AuthenticationProvider>().signOut().then((value){
               Navigator.popAndPushNamed(context, RouteManager.loginPage);
-            });
+            }).catchError((error){
+              print(error.runtimeType);
+     SnackBarDialoge.showSnackBar(context , message: errorMessage(error) ,
+     bgColor: Colors.red, messageColor: kWhiteColor ,icon: Icons.error_outline);
+     });
             break;
 
         }

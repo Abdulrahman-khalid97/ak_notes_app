@@ -39,5 +39,11 @@ class UserRepositoryImpl implements UserRepository{
     throw UnimplementedError();
   }
 
+  @override
+  Future<Either<Failure, Unit>> updateUserPassword(String password) {
+    // TODO: implement updateUserPassword
+    throw UnimplementedError();
+  }
+
 
 }

@@ -21,8 +21,7 @@ class NoteLocalDataSourceWithSPImpl extends NoteLocalDataSource{
   Future<Unit> cacheNotes(List<NoteModel> noteModels)  {
     List noteModelsToJson = noteModels.map<Map<String , dynamic>>((noteModel)=> noteModel.toJson()).toList();
 
-   //sharedPreferences.setString(CACHED_NOTE , json.encode(noteModelsToJson));
-
+   sharedPreferences.setString(CACHED_NOTE , json.encode(noteModelsToJson));
     return Future.value(unit);
   }
   @override

@@ -43,13 +43,14 @@ class _NotesPageBodyState extends State<NotesPageBody> {
     return
       StreamBuilder(stream: context.watch<NoteProvider>().streamNote(FirebaseAuth.instance.currentUser!.uid),
         builder: (context , snapshot){
+
           if(snapshot.connectionState== ConnectionState.waiting){
             return const LoadingWidget();
           }
           else{
             if(snapshot.hasError){
               return Expanded(child: Center(child: Text(AppLocal.loc.error),));
-            }else if(snapshot.hasData){
+            }else if(snapshot.hasData && snapshot.data!.isNotEmpty) {
               return     Expanded(
                 child: StaggeredGridView.countBuilder(
                   crossAxisSpacing: 12,
@@ -79,6 +80,7 @@ class _NotesPageBodyState extends State<NotesPageBody> {
                                   context,
                                   message: AppLocal.loc.deletedSuccessfully);
                             }).catchError((onError){
+                              print("OnError"+ onError.toString());
                               SnackBarDialoge.showSnackBar(
                                   icon: Icons.error,
                                   bgColor: Colors.red,

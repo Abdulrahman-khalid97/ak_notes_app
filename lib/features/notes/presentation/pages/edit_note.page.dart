@@ -9,8 +9,10 @@ class EditNotePage extends StatelessWidget {
   final Note? note;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: EditNoteBody(note: note,),
+    return SafeArea(
+      child: Scaffold(
+        body: EditNoteBody(note: note,),
+      ),
     );
   }
 }

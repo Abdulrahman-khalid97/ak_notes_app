@@ -12,5 +12,6 @@ abstract class UserRepository{
   Future<Either<Failure , Unit>> deleteUser();
   Future<Either<Failure , Unit>> updateUser(UserEntity user);
   Future<Either<Failure , Unit>> addUser(UserEntity user);
+  Future<Either<Failure , Unit>> updateUserPassword(String password);
 
 }

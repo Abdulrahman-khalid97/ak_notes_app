@@ -5,6 +5,7 @@ import 'package:ak_notes_app/core/error/error_message_filter.dart';
 import 'package:ak_notes_app/core/error/failure.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/contentTextField.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/title_text_field.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,15 +35,14 @@ class EditNoteBodyState extends State<EditNoteBody> {
     title = widget.note!.title;
     content = widget.note!.content;
     AppLocal.init(context);
-    return Scaffold(
-      body: ChangeNotifierProvider(
+    return ChangeNotifierProvider(
         create: (_) => context.read<AddUpdateDeleteProvider>(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
               const SizedBox(
-                height: 50,
+                height: 16,
               ),
             _buildAppBar(context),
 
@@ -83,8 +83,8 @@ class EditNoteBodyState extends State<EditNoteBody> {
             ],
           ),
         ),
-      ),
-    );
+      );
+
   }
   Widget _buildAppBar(BuildContext context){
  return   CustomAppBarEdit(
@@ -97,7 +97,7 @@ class EditNoteBodyState extends State<EditNoteBody> {
            final editedNote = Note(title: title,
                content: content,
                createdAt: widget.note!.createdAt,
-               updateAt: widget.note!.updateAt,
+               updateAt: Timestamp.fromDate(DateTime.now()),
                id: widget.note!.id);
            await context.read<AddUpdateDeleteProvider>()
                .updateNote(

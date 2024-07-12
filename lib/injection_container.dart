@@ -14,7 +14,9 @@ import 'package:ak_notes_app/features/auth/domain/usecases/get_user_info.dart';
 import 'package:ak_notes_app/features/auth/domain/usecases/sign_in_email_password.dart';
 import 'package:ak_notes_app/features/auth/domain/usecases/sign_out.dart';
 import 'package:ak_notes_app/features/auth/domain/usecases/sign_up_email_password.dart';
+import 'package:ak_notes_app/features/auth/domain/usecases/update_password.dart';
 import 'package:ak_notes_app/features/auth/domain/usecases/update_user.dart';
+import 'package:ak_notes_app/features/auth/domain/usecases/update_user_password.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/user_crud_provider.dart';
 import 'package:ak_notes_app/features/notes/data/datasources/note_local_data_source.dart';
@@ -34,6 +36,8 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'features/auth/domain/usecases/email_verification.dart';
+
 final sl = GetIt.instance;
 
 Future<void> init() async{
@@ -41,7 +45,7 @@ Future<void> init() async{
   // Provider
   sl.registerFactory(()=>NoteProvider(getAllNotesUseCase: sl(), streamNotes: sl()));
   sl.registerFactory(()=>AddUpdateDeleteProvider(addNoteUseCase: sl() , deleteNoteUseCase: sl() , updateNoteUseCase: sl()));
-  sl.registerFactory(()=>AuthenticationProvider(signUpEmailPassword: sl(), signInEmailPasswordUseCase: sl(), signOutUseCase: sl(), getCurrentUserUseCase: sl(), getAuthStateChangeUseCase: sl()));
+  sl.registerFactory(()=>AuthenticationProvider(signUpEmailPassword: sl(), signInEmailPasswordUseCase: sl(), signOutUseCase: sl(), getCurrentUserUseCase: sl(), getAuthStateChangeUseCase: sl(), sendEmailVerification: sl(), updatePasswordUseCase: sl()));
   sl.registerFactory(()=> UserCrudProvider(addUserUseCase: sl(), updateUserUseCase: sl(), deleteUserUseCase: sl(), getUserInfoUseCase: sl()));
 
       //UseCases
@@ -56,8 +60,10 @@ Future<void> init() async{
   sl.registerLazySingleton(()=>SignOutUseCase(repository: sl()));
   sl.registerLazySingleton(()=>GetAuthStateChangeUseCase(repository: sl()));
   sl.registerLazySingleton(()=>GetCurrentUserUseCase(repository: sl()));
-
-
+  sl.registerLazySingleton(()=>EmailVerificationUseCase(repository: sl()));
+  sl.registerLazySingleton(()=>UpdatePasswordUseCase(repository: sl()));
+  sl.registerLazySingleton(()=>UpdateUserPasswordUseCase(repository: sl()));
+  
   sl.registerLazySingleton(()=>AddUserUseCase(repository: sl()));
   sl.registerLazySingleton(()=>UpdateUserUseCase(repository: sl()));
   sl.registerLazySingleton(()=>DeleteUserUseCase(repository: sl()));

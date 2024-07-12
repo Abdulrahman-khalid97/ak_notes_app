@@ -8,22 +8,27 @@ import 'package:ak_notes_app/features/auth/domain/usecases/sign_up_email_passwor
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../app_local.dart';
+import '../../../../core/error/exception..dart';
 import '../../../../core/error/failure.dart';
+import '../../domain/usecases/email_verification.dart';
 import '../../domain/usecases/get_auth_state_changes.dart';
 import '../../domain/usecases/get_current_user.dart';
 import '../../domain/usecases/sign_out.dart';
+import '../../domain/usecases/update_password.dart';
 
 
 class AuthenticationProvider extends ChangeNotifier{
+
   final SignUpEmailPassword signUpEmailPassword;
   final SignInEmailPasswordUseCase signInEmailPasswordUseCase;
   final SignOutUseCase signOutUseCase;
   final GetCurrentUserUseCase getCurrentUserUseCase;
   final GetAuthStateChangeUseCase getAuthStateChangeUseCase;
-String _message="";
+  final EmailVerificationUseCase sendEmailVerification;
+  final UpdatePasswordUseCase updatePasswordUseCase;
 
-  AuthenticationProvider({required this.signUpEmailPassword, required this.signInEmailPasswordUseCase, required this.signOutUseCase, required this.getCurrentUserUseCase, required this.getAuthStateChangeUseCase});
+
+  AuthenticationProvider( {required this.updatePasswordUseCase, required this.sendEmailVerification, required this.signUpEmailPassword, required this.signInEmailPasswordUseCase, required this.signOutUseCase, required this.getCurrentUserUseCase, required this.getAuthStateChangeUseCase});
 
    Stream<User?>? get authChanges=> getAuthStateChangeUseCase();
    User? get user => getCurrentUserUseCase();
@@ -33,14 +38,12 @@ String _message="";
        final loginOrFailure = await signInEmailPasswordUseCase(email, password);
        loginOrFailure.fold(
                (failure){
-             _message= _mapFailureToMessage(failure);
-             notifyListeners();
-           }, (_){
-         _message=AppLocal.loc.logIn;
-         notifyListeners();
+             throw _mapFailureToMessage(failure);
+           }, (_){// Success never do any thing
        });
      }catch(exp){
-       print("Login : $exp");
+       print("Verification");
+      rethrow;
      }
 
    }
@@ -50,30 +53,32 @@ String _message="";
       final loginOrFailure = await signUpEmailPassword(user);
       loginOrFailure.fold(
               (failure){
-            _message= _mapFailureToMessage(failure);
-            notifyListeners();
+            throw _mapFailureToMessage(failure);
+
           }, (_){
-        _message=AppLocal.loc.logIn;
-        notifyListeners();
+
+
       });
     }catch(exp){
-      print("Register : $exp");
+      rethrow;
     }
 
   }
 
 
-  String _mapFailureToMessage(Failure failure){
 
-    switch(failure.runtimeType){
+  _mapFailureToMessage(Failure failure) {
+    switch (failure.runtimeType) {
       case ServerFailure:
-        return "Server Failure";
+        throw ServerException();
       case EmptyCachedFailure:
-        return "Empty Cached";
+        throw EmptyCacheException();
+      case OffLineFailure:
+        throw OffLineException();
       case InternetConnectionFailure:
-        return "InternetConnectionFailure";
+        throw InternetConnectionException();
       default:
-        return "UnExpected Error , Please try later";
+        throw Exception();
     }
   }
 
@@ -84,12 +89,29 @@ String _message="";
       loginOrFailure.fold(
               (failure){
             throw _mapFailureToMessage(failure);
-
           }, (_){
-
       });
     }catch(exp){
      rethrow;
+    }
+
+  }
+
+
+  Future<void> updatePassword(String old , String newPassword)async{
+    try{
+      print(old);
+      print(newPassword);
+      final updateOrFailure = await updatePasswordUseCase(old, newPassword);
+      updateOrFailure.fold(
+              (failure){
+                print("failure");
+            throw _mapFailureToMessage(failure);
+          }, (_){// Success never do any thing
+      });
+    }catch(exp){
+      print("Verification");
+      rethrow;
     }
 
   }

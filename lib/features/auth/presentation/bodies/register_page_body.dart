@@ -23,7 +23,7 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
   bool loading=false;
   DateTime? _selectedDate;
   bool passVisibility=true;
-  String? userName , email , password , fName , lName , gender , age;
+  String? userName , email , password , fName , lName ;
   final GlobalKey<FormState> _frmKey = GlobalKey();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
   final TextEditingController _controllerEmail = TextEditingController();
@@ -112,65 +112,6 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
                             ),
                           ),
                         ],
-                      ),
-                      const SizedBox(height: 16,),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: (MediaQuery.of(context).size.width/2)-48,
-                            child: DropdownButton<DateTime>(
-                              value: _selectedDate,
-                              hint: const Text('Select a date'),
-                              onTap:  _showDatePicker,
-                              onChanged: (DateTime? newValue) {
-                                // No-op, the date is selected via the date picker
-                                _selectedDate.toString();
-                              },
-                              items: [
-                                if (_selectedDate != null)
-                                  DropdownMenuItem(
-                                    value: _selectedDate,
-                                    child: Text("${_selectedDate!.year}/${_selectedDate!.month}/${_selectedDate!.day}"),
-                                  )
-                                else
-                                  const DropdownMenuItem(
-                                    value: null,
-                                    child: Text('Select a date'),
-                                  ),
-                              ],
-
-
-                            ),
-                          ),
-                          const Spacer(),
-                          SizedBox(
-                            width: (MediaQuery.of(context).size.width/2)-48,
-                            child: DropdownButtonFormField(
-                                validator: (value){
-                                  if(value?.isEmpty ?? true)
-                                  {
-                                    return  AppLocal.loc.required;
-                                  }
-                                  else{
-                                    return null;
-                                  }
-                                },
-                                items: const [
-                                  DropdownMenuItem(value: "Male",child:  Text("Male") ) ,
-                                  DropdownMenuItem(value: "Female",child: Text("Female") ),
-                                ],
-                                hint:  Text(AppLocal.loc.gender),
-                                onChanged: (value){
-                                  gender=value;
-                                },
-                                decoration:  InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8.0)
-
-                                    )
-                                )
-                            ),
-                          )],
                       ),
                       const SizedBox(height: 16,),
                       TextFormField(
@@ -293,13 +234,13 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
                         ),
                       ) ,
                       const SizedBox(height: 16,),
-                      ElevatedButton(onPressed: (){
+                      ElevatedButton(onPressed: () async{
                         if(_frmKey.currentState!.validate()){
                           _frmKey.currentState!.save();
                           setState(() {
                             loading=true;
                           });
-                         context.watch<AuthenticationProvider>().register(
+                         await context.read<AuthenticationProvider>().register(
                              UserEntity(displayName: userName ,
                                  firstName: fName! ,
                                  lastName: lName! ,
@@ -313,6 +254,7 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
                               .then((value){
                             Navigator.popAndPushNamed(context, RouteManager.verificationPage);
                           }).catchError((error){
+                            print(error);
                             setState(() {
                               loading=false;
                             });

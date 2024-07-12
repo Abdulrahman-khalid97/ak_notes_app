@@ -25,6 +25,12 @@
        "oldPassword":"Old Password",
      "update" : "update",
      "edit":"Edit",
+     "account":"Account Setting",
+     "appSettings":"App Settings",
+     "help":"Help",
+      "on":"On" ,
+      "off":"Off",
+      "darkMode":"Dark Mode" ,
      "noNotes":"There is no any Notes",
      "error" : "Error",
      "addSuccessfully":"Have Added Successfully",
@@ -61,7 +67,8 @@
 
        "serverError":"There is some thing wrong , Please try later",
        "offLineError":"Please , check your internet connection and retry",
-       "unExpectedError":"There is UnExpectedError !"
-
+       "unExpectedError":"There is UnExpectedError !",
+       "verificationMessage":"We have sent a verification email Please check your inbox and click the link in the email to confirm your email address and finish setting up your account. Once you have verified your email, you will be able to access all the features of the app.",
+        "resendEmail":"Resend Email"
 
 }

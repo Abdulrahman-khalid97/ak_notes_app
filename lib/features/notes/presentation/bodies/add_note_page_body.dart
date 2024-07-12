@@ -1,5 +1,6 @@
 
 import 'package:ak_notes_app/app_local.dart';
+import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/provider/add_update_delete_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/provider/note_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/contentTextField.dart';
@@ -56,7 +57,7 @@ class _AddNoteFormState extends State<_AddNoteForm> {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 50,
+                  height: 16,
                 ),
                 _buildAppBar(context),
                 Expanded(
@@ -92,8 +93,8 @@ class _AddNoteFormState extends State<_AddNoteForm> {
           if(_frmKey.currentState!.validate()){
             _frmKey.currentState!.save();
             note = Note( title: title!, content: content! ,createdAt: Timestamp.fromDate(DateTime.now()) , updateAt:Timestamp.fromDate(DateTime.now()));
-             await context.read<AddUpdateDeleteProvider>().addNote(FirebaseAuth.instance.currentUser!.uid, note!).then((value) {
-                context.read<NoteProvider>().getNotes(FirebaseAuth.instance.currentUser!.uid);
+             await context.read<AddUpdateDeleteProvider>().addNote(context.read<AuthenticationProvider>().user!.uid, note!).then((value) {
+                context.read<NoteProvider>().getNotes(context.read<AuthenticationProvider>().user!.uid);
                SnackBarDialoge.showSnackBar(context , message: AppLocal.loc.addSuccessfully ,
                bgColor: Colors.greenAccent, messageColor: Colors.black ,icon: Icons.check);
                 Navigator.of(context).pop();
@@ -106,9 +107,9 @@ class _AddNoteFormState extends State<_AddNoteForm> {
             autoValidateMode= AutovalidateMode.always;
           }
         },
-          backgroundColor: kPrimaryColor,
+          backgroundColor: Colors.blueGrey,
           shape: const CircleBorder(),
-          child: const Icon(Icons.check) ,
+          child: const Icon(Icons.check , color: Colors.white,) ,
         ),
       );
   }

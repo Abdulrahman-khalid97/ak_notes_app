@@ -12,7 +12,9 @@ abstract class AuthRepository{
   Future<Either<Failure , Unit>> signInWithEmailAndPassword(String email , String password);
   Future<Either<Failure , Unit>> signUpWithEmailAndPassword(UserEntity user);
   Future<Either<Failure , Unit>> signOut();
+  Future<Either<Failure , Unit>> updatePassword(String oldPassword , String newPassword);
  User? getCurrentUser();
  Stream<User?> getAuthStateChanges();
+  Future<Either<Failure , Unit>> sendEmailVerificationEmail();
 
 }

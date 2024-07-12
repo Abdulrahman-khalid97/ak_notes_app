@@ -20,11 +20,6 @@ class SnackBarDialoge{
             Icon(icon??Icons.info_outline) ,
             const SizedBox(width: 16,),
             Expanded(child: Text(message , style: TextStyle(color: messageColor),)) ,
-            // const Spacer() ,
-            // TextButton(onPressed: ()=> ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-            //     child: const  Text('DISMISS' , style: TextStyle(
-            //   fontWeight: FontWeight.bold
-            // ),))
           ],
         ),
     dismissDirection: DismissDirection.down,

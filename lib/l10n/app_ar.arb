@@ -31,6 +31,12 @@
       "already":"ألديك حساب مسبقاً ؟" ,
        "userName":"اسم المستخدم",
      "theNote":"الملاحظة",
+        "account":"اعدادات الحساب",
+          "appSettings":"اعدادات التطبيق",
+          "help":"المساعدة",
+          "on":"مفعل" ,
+          "off":"مقفل",
+          "darkMode":"الوضع المظلم" ,
      "delete" : "حذف",
      "downloading":"جاري جلب البيانات...",
     "ar" : "ar",
@@ -59,5 +65,8 @@
      "deleteNoteMessage":"هل ترغب حقاً في حذف هذه الملاحظة" ,
        "serverError":"There is some thing wrong , Please try later",
             "offLineError":"Please , check your internet connection and retry",
-            "unExpectedError":"There is UnExpectedError !"
+            "unExpectedError":"There is UnExpectedError !",
+
+             "verificationMessage":"لقد أرسلنا رسالة تحقق عبر البريد الإلكتروني يرجى التحقق من صندوق الوارد الخاص بك والنقر فوق الارتباط الموجود في البريد الإلكتروني لتأكيد عنوان بريدك الإلكتروني والانتهاء من إعداد حسابك. بمجرد التحقق من بريدك الإلكتروني، ستتمكن من الوصول إلى جميع ميزات التطبيق." ,
+             "resendEmail":"اعاة ارسال الايميل"
 }
