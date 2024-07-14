@@ -3,7 +3,9 @@ import 'package:ak_notes_app/core/error/failure.dart';
 import 'package:ak_notes_app/features/auth/domain/entities/user.dart';
 import 'package:ak_notes_app/features/auth/domain/repositories/user_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart';
 
+import '../../../../core/error/exception..dart';
 import '../../../../core/network/network.dart';
 import '../datasources/user_remote_data_source.dart';
 
@@ -40,9 +42,19 @@ class UserRepositoryImpl implements UserRepository{
   }
 
   @override
-  Future<Either<Failure, Unit>> updateUserPassword(String password) {
-    // TODO: implement updateUserPassword
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> updateUserPassword(String uid , String password) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await userRemoteDataSource.updateUserPassword(uid, password);
+        return Right(unit);
+      } on ServerException catch(e){
+        return Left(ServerFailure());
+      }on WrongDataFailure catch(e){
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetConnectionFailure());
+    }
   }
 
 

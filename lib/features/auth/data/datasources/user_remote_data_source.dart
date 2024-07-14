@@ -51,7 +51,7 @@ class UserRemoteDataSourceFB implements UserRemoteDataSource{
   @override
   Future<Unit> updateUserPassword(String id , String password) async {
     try{
-      await db.collection(USERS_COLLECTION).doc(id).update({"password":password});
+      await db.collection(USERS_COLLECTION).doc(id).update({"password":password , "updatedAt":Timestamp.fromDate(DateTime.now())});
       return Future.value(unit);
     } on ServerException{
       throw  ServerFailure();

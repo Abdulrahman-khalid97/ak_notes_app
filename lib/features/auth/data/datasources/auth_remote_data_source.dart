@@ -12,9 +12,11 @@ abstract class AuthRemoteDataSource {
   Future<Unit> signUpWithEmailAndPassword(UserModel user);
   Future<void> sendEmailVerification();
   Future<Unit> updatePassword(String currentPassword, String newPassword);
+  Future<Unit> updateProfileImage(String profileUrl);
   Future<Unit> signOut();
   Stream<User?> getAuthStateChanges();
   User? getCurrentUser();
+
 }
 
 class AuthRemoteDataSourceFB implements AuthRemoteDataSource {
@@ -94,7 +96,6 @@ class AuthRemoteDataSourceFB implements AuthRemoteDataSource {
           email: user.email!,
           password: currentPassword,
         );
-
         await user.reauthenticateWithCredential(credential);
         // Update the password
         await user.updatePassword(newPassword);
@@ -102,6 +103,24 @@ class AuthRemoteDataSourceFB implements AuthRemoteDataSource {
         return Future.value(unit);
       } catch (e) {
         print('Error updating password: $e');
+        throw ServerFailure();
+      }
+    } else {
+      print('No user signed in');
+      throw WrongDataFailure();
+    }
+  }
+
+  @override
+  Future<Unit> updateProfileImage(String profileUrl) async {
+    final user = getCurrentUser();
+    if (user != null) {
+      try {
+
+        await user.updatePhotoURL(profileUrl);
+        return Future.value(unit);
+      } catch (e) {
+        print('Error updating profileImage: $e');
         throw ServerFailure();
       }
     } else {

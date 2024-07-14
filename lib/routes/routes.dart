@@ -1,6 +1,7 @@
 
 
 import 'package:ak_notes_app/features/auth/presentation/bodies/settings_page_body.dart';
+import 'package:ak_notes_app/features/auth/presentation/pages/account_details_page.dart';
 import 'package:ak_notes_app/features/auth/presentation/pages/language_page.dart';
 import 'package:ak_notes_app/features/auth/presentation/pages/setiting_page.dart';
 import 'package:ak_notes_app/features/auth/presentation/pages/update_password_page.dart';
@@ -29,6 +30,7 @@ class RouteManager{
   static const String widgetTreePage="/widgetTreeView";
   static const String addNotePage="/addNotePage";
   static const String verificationPage="/verificationView";
+  static const String accountDetailsPage="/accountDetailsPage";
 
   static Route<dynamic> generateRoute(RouteSettings settings){
 
@@ -51,6 +53,8 @@ class RouteManager{
         return MaterialPageRoute(builder: (context)=>const UpdatePasswordPage());
       case changeLangPage :
         return MaterialPageRoute(builder: (context)=>const LanguagePage());
+      case accountDetailsPage :
+        return MaterialPageRoute(builder: (context)=>const AccountDetailsPage());
       default :
         throw const FormatException("Error in Route");
 

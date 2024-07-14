@@ -8,8 +8,8 @@ class UpdateUserPasswordUseCase{
   final UserRepository repository;
 
   UpdateUserPasswordUseCase({required this.repository});
-  Future<Either<Failure, Unit>> call(String password) async {
-    return await repository.updateUserPassword(password);
+  Future<Either<Failure, Unit>> call(String uid , String password) async {
+    return await repository.updateUserPassword(uid , password);
   }
   
 }

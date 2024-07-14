@@ -15,6 +15,7 @@ import '../../domain/usecases/get_auth_state_changes.dart';
 import '../../domain/usecases/get_current_user.dart';
 import '../../domain/usecases/sign_out.dart';
 import '../../domain/usecases/update_password.dart';
+import '../../domain/usecases/update_profile_image.dart';
 
 
 class AuthenticationProvider extends ChangeNotifier{
@@ -26,9 +27,9 @@ class AuthenticationProvider extends ChangeNotifier{
   final GetAuthStateChangeUseCase getAuthStateChangeUseCase;
   final EmailVerificationUseCase sendEmailVerification;
   final UpdatePasswordUseCase updatePasswordUseCase;
+  final UpdateProfileImageUseCase updateProfileImageUseCase;
 
-
-  AuthenticationProvider( {required this.updatePasswordUseCase, required this.sendEmailVerification, required this.signUpEmailPassword, required this.signInEmailPasswordUseCase, required this.signOutUseCase, required this.getCurrentUserUseCase, required this.getAuthStateChangeUseCase});
+  AuthenticationProvider(  {required this.updateProfileImageUseCase,required this.updatePasswordUseCase, required this.sendEmailVerification, required this.signUpEmailPassword, required this.signInEmailPasswordUseCase, required this.signOutUseCase, required this.getCurrentUserUseCase, required this.getAuthStateChangeUseCase});
 
    Stream<User?>? get authChanges=> getAuthStateChangeUseCase();
    User? get user => getCurrentUserUseCase();
@@ -115,4 +116,22 @@ class AuthenticationProvider extends ChangeNotifier{
     }
 
   }
+
+  Future<void> updateProfileImage(String photoURL)async{
+    try{
+
+      final updateOrFailure = await updateProfileImageUseCase(photoURL);
+      updateOrFailure.fold(
+              (failure){
+
+            throw _mapFailureToMessage(failure);
+          }, (_){// Success never do any thing
+
+      });
+    }catch(exp){
+      rethrow;
+    }
+
+  }
 }
+

@@ -34,7 +34,7 @@ class _LanguagePageBodyState extends State<LanguagePageBody> {
               const SizedBox(
                 height: 24,
               ),
-              Text(AppLocal.loc.languageViewTitle , style: kTitle1Style,textAlign: TextAlign.start,),
+              Text(AppLocal.loc.languageViewTitle , style: kTitleHeaderStyle,textAlign: TextAlign.start,),
               Expanded(
                 child: ListView(
                   children: [

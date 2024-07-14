@@ -15,9 +15,11 @@ import 'package:ak_notes_app/features/auth/domain/usecases/sign_in_email_passwor
 import 'package:ak_notes_app/features/auth/domain/usecases/sign_out.dart';
 import 'package:ak_notes_app/features/auth/domain/usecases/sign_up_email_password.dart';
 import 'package:ak_notes_app/features/auth/domain/usecases/update_password.dart';
+import 'package:ak_notes_app/features/auth/domain/usecases/update_profile_image.dart';
 import 'package:ak_notes_app/features/auth/domain/usecases/update_user.dart';
 import 'package:ak_notes_app/features/auth/domain/usecases/update_user_password.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
+import 'package:ak_notes_app/features/auth/presentation/provider/storage_provider.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/user_crud_provider.dart';
 import 'package:ak_notes_app/features/notes/data/datasources/note_local_data_source.dart';
 import 'package:ak_notes_app/features/notes/data/datasources/note_remote_data_source.dart';
@@ -45,9 +47,9 @@ Future<void> init() async{
   // Provider
   sl.registerFactory(()=>NoteProvider(getAllNotesUseCase: sl(), streamNotes: sl()));
   sl.registerFactory(()=>AddUpdateDeleteProvider(addNoteUseCase: sl() , deleteNoteUseCase: sl() , updateNoteUseCase: sl()));
-  sl.registerFactory(()=>AuthenticationProvider(signUpEmailPassword: sl(), signInEmailPasswordUseCase: sl(), signOutUseCase: sl(), getCurrentUserUseCase: sl(), getAuthStateChangeUseCase: sl(), sendEmailVerification: sl(), updatePasswordUseCase: sl()));
-  sl.registerFactory(()=> UserCrudProvider(addUserUseCase: sl(), updateUserUseCase: sl(), deleteUserUseCase: sl(), getUserInfoUseCase: sl()));
-
+  sl.registerFactory(()=>AuthenticationProvider(signUpEmailPassword: sl(), signInEmailPasswordUseCase: sl(), signOutUseCase: sl(), getCurrentUserUseCase: sl(), getAuthStateChangeUseCase: sl(), sendEmailVerification: sl(), updatePasswordUseCase: sl(), updateProfileImageUseCase: sl()));
+  sl.registerFactory(()=> UserCrudProvider(addUserUseCase: sl(), updateUserUseCase: sl(), deleteUserUseCase: sl(), getUserInfoUseCase: sl(), updateUserPasswordUseCase: sl()));
+  sl.registerLazySingleton(()=>StorageProvider());
       //UseCases
   sl.registerLazySingleton(()=>GetAllNotesUseCase( repository: sl()));
   sl.registerLazySingleton(()=>StreamNotes( repository: sl()));
@@ -63,7 +65,8 @@ Future<void> init() async{
   sl.registerLazySingleton(()=>EmailVerificationUseCase(repository: sl()));
   sl.registerLazySingleton(()=>UpdatePasswordUseCase(repository: sl()));
   sl.registerLazySingleton(()=>UpdateUserPasswordUseCase(repository: sl()));
-  
+  sl.registerLazySingleton(()=>UpdateProfileImageUseCase(repository: sl()));
+
   sl.registerLazySingleton(()=>AddUserUseCase(repository: sl()));
   sl.registerLazySingleton(()=>UpdateUserUseCase(repository: sl()));
   sl.registerLazySingleton(()=>DeleteUserUseCase(repository: sl()));

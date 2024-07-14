@@ -1,6 +1,8 @@
 
 import 'package:ak_notes_app/features/auth/presentation/pages/widget_tree_page.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
+import 'package:ak_notes_app/features/auth/presentation/provider/storage_provider.dart';
+import 'package:ak_notes_app/features/auth/presentation/provider/user_crud_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/provider/add_update_delete_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/provider/note_provider.dart';
 import 'package:ak_notes_app/firebase_options.dart';
@@ -38,13 +40,15 @@ class NotesApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_)=>SettingProvider()),
+        ChangeNotifierProvider(create: (_)=>StorageProvider()),
+
         Provider(create: (_)=>di.sl<NoteProvider>()),
         Provider(create: (_)=>di.sl<AddUpdateDeleteProvider>()),
-        Provider(create: (_)=>di.sl<AuthenticationProvider>())
+        Provider(create: (_)=>di.sl<AuthenticationProvider>()) ,
+        Provider(create: (_)=>di.sl<UserCrudProvider>())
       ],
         child:Builder(
           builder: (context){
-
             return MaterialApp(
               supportedLocales: L10n.all,
               locale: Locale(Provider.of<SettingProvider>(context).local ?? SharedPref.lang??AppLocal.loc.en),

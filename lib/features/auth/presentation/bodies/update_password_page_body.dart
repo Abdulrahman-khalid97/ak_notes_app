@@ -1,6 +1,10 @@
 
 import 'package:ak_notes_app/app_local.dart';
+import 'package:ak_notes_app/core/error/exception..dart';
+import 'package:ak_notes_app/core/error/failure.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
+import 'package:ak_notes_app/features/auth/presentation/provider/user_crud_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +27,7 @@ class _UpdatePasswordPageBodyState extends State<UpdatePasswordPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    // final userController = Provider.of<UserController>(context , listen:  true);
+
     AppLocal.init(context);
     return Scaffold(
       body: Padding(
@@ -141,27 +145,36 @@ class _UpdatePasswordPageBodyState extends State<UpdatePasswordPageBody> {
                   ),
                 ),
                 const SizedBox(height: 24,),
-                ElevatedButton(onPressed: (){
-                  if(_frmKey.currentState!.validate()){
+                ElevatedButton(onPressed: () async{
+                  if(_frmKey.currentState!.validate()) {
                     setState(() {
-                      loading=true;
+                      loading = true;
                     });
-                  _frmKey.currentState!.save();
-                  context.read<AuthenticationProvider>().updatePassword(oldPassword!, newPassword!).then((onValue){
-                    setState(() {
-                      loading=true;
-                    });
-                    SnackBarDialoge.showSnackBar(context , message: AppLocal.loc.updatedSuccessfully ,
-                        bgColor: Colors.greenAccent, messageColor: Colors.black ,icon: Icons.check);
-                    Navigator.of(context).pop();
-                  }).catchError((onError){
-                    setState(() {
-                      loading=true;
-                    });
-                    SnackBarDialoge.showSnackBar(context , message: errorMessage(onError) ,
-                        bgColor: Colors.red, messageColor: kWhiteColor ,icon: Icons.error_outline);
-                  });
+                    _frmKey.currentState!.save();
+                    try {
+                      await context.read<AuthenticationProvider>()
+                          .updatePassword(oldPassword!, newPassword!);
+                      if (context.mounted)  await context.read<UserCrudProvider>().updatePassword(context.read<AuthenticationProvider>().user!.uid, newPassword!);
+                      if (context.mounted) {
+                        SnackBarDialoge.showSnackBar(context , message:AppLocal.loc.updatedSuccessfully,
+                          bgColor: Colors.green, messageColor: kWhiteColor ,icon: Icons.error_outline);
+                      }
+                      setState(() {
+                        loading = false;
+                      });
+                      if (context.mounted) Navigator.of(context).pop();
+                    } on ServerFailure {
+                      setState(() {
+                        loading=false;
+                      });
+                      if (context.mounted) {
+                        SnackBarDialoge.showSnackBar(context , message: errorMessage(ServerException()) ,
+                          bgColor: Colors.red, messageColor: kWhiteColor ,icon: Icons.error_outline);
+                      }
+
+                    }
                   }
+
                   else{
                     autoValidateMode= AutovalidateMode.always;
                   }

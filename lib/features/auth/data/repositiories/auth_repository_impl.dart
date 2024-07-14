@@ -110,7 +110,24 @@ class AuthRepositoryImpl implements AuthRepository{
     if (await networkInfo.isConnected) {
       try {
         await authRemoteDataSource.updatePassword(oldPassword, newPassword);
-        await userRemoteDataSource.updateUserPassword(getCurrentUser()!.uid, newPassword);
+     //   await userRemoteDataSource.updateUserPassword(getCurrentUser()!.uid, newPassword);
+        return Right(unit);
+      } on ServerException catch(e){
+        return Left(ServerFailure());
+      }on WrongDataFailure catch(e){
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> updateProfileImage(String profileUrl) async {
+    if (await networkInfo.isConnected) {
+      try {
+
+        await authRemoteDataSource.updateProfileImage(profileUrl);
         return Right(unit);
       } on ServerException catch(e){
         return Left(ServerFailure());
