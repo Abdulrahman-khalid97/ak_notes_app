@@ -25,8 +25,6 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
   String? userName , email , password , fName , lName ;
   final GlobalKey<FormState> _frmKey = GlobalKey();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
-  final TextEditingController _controllerEmail = TextEditingController();
-  final TextEditingController _controllerPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
