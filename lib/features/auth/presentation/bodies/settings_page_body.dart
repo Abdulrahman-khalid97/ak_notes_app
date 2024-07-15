@@ -115,7 +115,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                   CustomIcon(icon:context.read<SettingProvider>().local! ==AppLocal.loc.en?  Icons.chevron_right_outlined:Icons.chevron_left_outlined , onIconPressed: () async{
                    Navigator.pushNamed(context, RouteManager.updatePasswordPage);
                   },) ,
-          
+
                 ],
               ),
               const SizedBox(height: 8,),
@@ -127,7 +127,9 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                   const Spacer() ,
                   CustomIcon(icon:context.read<SettingProvider>().local! ==AppLocal.loc.en?  Icons.chevron_right_outlined:Icons.chevron_left_outlined , onIconPressed: () async{
                     await context.read<AuthenticationProvider>().signOut().then((value){
+                      Navigator.of(context).pop();
                       Navigator.popAndPushNamed(context, RouteManager.loginPage);
+
                     }).catchError((error){
                       SnackBarDialoge.showSnackBar(context , message: errorMessage(error) ,
                           bgColor: Colors.red, messageColor: kWhiteColor ,icon: Icons.error_outline);

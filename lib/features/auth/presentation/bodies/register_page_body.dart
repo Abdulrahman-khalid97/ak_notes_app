@@ -18,8 +18,7 @@ class RegisterPageBody extends StatefulWidget {
 }
 
 class _RegisterPageBodyState extends State<RegisterPageBody> {
-  String? errorMessage='';
-  bool isLogin = true;
+
   bool loading=false;
   DateTime? _selectedDate;
   bool passVisibility=true;

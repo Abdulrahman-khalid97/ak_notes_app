@@ -30,27 +30,40 @@ class AuthenticationProvider extends ChangeNotifier{
   final UpdateProfileImageUseCase updateProfileImageUseCase;
 
   AuthenticationProvider(  {required this.updateProfileImageUseCase,required this.updatePasswordUseCase, required this.sendEmailVerification, required this.signUpEmailPassword, required this.signInEmailPasswordUseCase, required this.signOutUseCase, required this.getCurrentUserUseCase, required this.getAuthStateChangeUseCase});
-
    Stream<User?>? get authChanges=> getAuthStateChangeUseCase();
    User? get user => getCurrentUserUseCase();
 
-   Future<void> login(String email , String password)async{
+  bool inProgressing= false;
+
+
+
+
+  Future<void> login(String email , String password)async{
      try{
+       inProgressing=true;
+       notifyListeners();
+
        final loginOrFailure = await signInEmailPasswordUseCase(email, password);
        loginOrFailure.fold(
                (failure){
              throw _mapFailureToMessage(failure);
            }, (_){// Success never do any thing
+
        });
+
      }catch(exp){
-       print("Verification");
+       print(exp.toString());
       rethrow;
      }
+     inProgressing=false;
+     notifyListeners();
 
    }
 
   Future<void> register(UserEntity user)async{
     try{
+      inProgressing=true;
+      notifyListeners();
       final loginOrFailure = await signUpEmailPassword(user);
       loginOrFailure.fold(
               (failure){
@@ -60,10 +73,12 @@ class AuthenticationProvider extends ChangeNotifier{
 
 
       });
+
     }catch(exp){
       rethrow;
     }
-
+    inProgressing=false;
+    notifyListeners();
   }
 
 
@@ -95,7 +110,6 @@ class AuthenticationProvider extends ChangeNotifier{
     }catch(exp){
      rethrow;
     }
-
   }
 
 
@@ -132,6 +146,12 @@ class AuthenticationProvider extends ChangeNotifier{
       rethrow;
     }
 
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    // super.dispose();
   }
 }
 
