@@ -23,5 +23,3 @@ const kSubTitleStyle=  TextStyle(
 );
 
 
-const kPrimaryColor= Color.fromRGBO(0,150,255, 1);
-const kWhiteColor = Color.fromRGBO(255,255,255, 1);

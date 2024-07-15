@@ -2,9 +2,10 @@
 import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/core/error/exception..dart';
 import 'package:ak_notes_app/core/error/failure.dart';
+import 'package:ak_notes_app/core/strings/color.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/user_crud_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +40,7 @@ class _UpdatePasswordPageBodyState extends State<UpdatePasswordPageBody> {
               shrinkWrap: true,
               children: [
                 Center(
-                  child: Text("${AppLocal.loc.update} ${AppLocal.loc.password}", style: kTitle1Style),
+                  child: Text(AppLocal.loc.changePassword, style: kTitle1Style),
                 ),
                const SizedBox(height: 50,),
                 TextFormField(
@@ -145,7 +146,11 @@ class _UpdatePasswordPageBodyState extends State<UpdatePasswordPageBody> {
                   ),
                 ),
                 const SizedBox(height: 24,),
-                ElevatedButton(onPressed: () async{
+                ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(kGreenColor),
+                    ),
+                    onPressed: () async{
                   if(_frmKey.currentState!.validate()) {
                     setState(() {
                       loading = true;
@@ -187,23 +192,30 @@ class _UpdatePasswordPageBodyState extends State<UpdatePasswordPageBody> {
                       loading?const SizedBox(
                           width:24,
                           height: 24,
-                          child:  CircularProgressIndicator()): const Icon(Icons.password) ,
+                          child:  CircularProgressIndicator()): const Icon(Icons.password , color: kWhiteColor) ,
                       const   SizedBox(width: 16,),
-                       Text(AppLocal.loc.update)
+                       Text(AppLocal.loc.update, style: const TextStyle(color: kWhiteColor),)
                     ],
                   ),
                 )),
-                ElevatedButton(onPressed: (){
-                  Navigator.of(context).pop(false);
-                }, child:  SizedBox(
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                   const Icon(Icons.arrow_back),
-                       const SizedBox(width: 16,),
-                    Text(AppLocal.loc.cancel),
-                  ],
-                )))
+                SizedBox(
+                  width: MediaQuery.of(context).size.width/2,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(kCancelColor),
+                    ),
+                      onPressed: (){
+                    Navigator.of(context).pop(false);
+                  }, child:  SizedBox(
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                     const Icon(Icons.arrow_back , color: kWhiteColor,),
+                         const SizedBox(width: 16,),
+                      Text(AppLocal.loc.cancel , style: const TextStyle(color: kWhiteColor),),
+                    ],
+                  ))),
+                )
               ],
             ),
           ),

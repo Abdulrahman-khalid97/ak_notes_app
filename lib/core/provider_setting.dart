@@ -11,11 +11,10 @@ class SettingProvider extends ChangeNotifier{
 
 
   SettingProvider(){
-
     getSetting();
-
     notifyListeners();
   }
+
   getSetting() async{
     local = await SharedPref.getLang();
     isDarkMode =  await SharedPref.getState();
