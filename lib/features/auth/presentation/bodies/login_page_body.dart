@@ -129,7 +129,6 @@ class _LoginPageBodyState extends State<LoginPageBody> {
 
                               Navigator.popAndPushNamed(context, RouteManager.homePage);
                             }).catchError((error){
-
                               showDialog(context: context, builder: (context) => AlertDialog(
                                 icon: const Icon(Icons.error , size: 48,),
                                 title:  Text(AppLocal.loc.error),

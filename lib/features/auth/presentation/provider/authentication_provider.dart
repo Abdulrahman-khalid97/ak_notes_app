@@ -46,12 +46,16 @@ class AuthenticationProvider extends ChangeNotifier{
        final loginOrFailure = await signInEmailPasswordUseCase(email, password);
        loginOrFailure.fold(
                (failure){
+                 inProgressing=false;
+                 notifyListeners();
              throw _mapFailureToMessage(failure);
            }, (_){// Success never do any thing
 
        });
 
      }catch(exp){
+       inProgressing=false;
+       notifyListeners();
        print(exp.toString());
       rethrow;
      }
