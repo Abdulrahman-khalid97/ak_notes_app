@@ -1,6 +1,15 @@
 # ak_notes_app
 
 # pages
+
+- login page
+![image](https://github.com/user-attachments/assets/58f86c27-afce-43fe-85db-c80c8d78da8e)
+
+- register page
+
+  ![image](https://github.com/user-attachments/assets/a74eb999-4f21-4dcf-b57d-3688e3e91d47)
+
+
 - show all notes
   
 ![image](https://github.com/user-attachments/assets/82029b70-aa8e-451f-87b3-d81327d46e07)
@@ -11,12 +20,14 @@
 
 - setting page
 
-  ![image](https://github.com/user-attachments/assets/3e8967e1-143c-42aa-810d-253a9b697a0d)
+  ![image](https://github.com/user-attachments/assets/830ba976-d0b1-4e67-ba91-5d9c8000836f)
+
 
 
 - change or update password page
 
-  ![image](https://github.com/user-attachments/assets/2d630676-15ca-4053-9ce7-f870ab9d5ae4)
+  ![image](https://github.com/user-attachments/assets/dadce7ec-0ab1-4a9c-9a91-568f96605780)
+
 
 - languages page
 
