@@ -2,6 +2,7 @@
 
 
 import 'package:ak_notes_app/app_local.dart';
+import 'package:ak_notes_app/core/style/dimensional.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/custom_app_bar.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/custom_search_delegate.dart';
@@ -27,15 +28,15 @@ AppLocal.init(context);
     return   SafeArea(
       child: Scaffold(
           body:   Padding(
-            padding:   const EdgeInsets.symmetric(horizontal: 24),
+            padding:   const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding),
             child: Column(
               children: [
                 const  SizedBox(
-                  height: 16,
+                  height: kAppBarUp,
                 ),
                _buildAppBar(context),
                 const  SizedBox(
-                  height: 5,
+                  height: kAppBarBottom,
                 ),
                 const NotesPageBody(),
               ],
@@ -56,7 +57,7 @@ AppLocal.init(context);
    Widget _buildAppBar(BuildContext context){
      final setting = Provider.of<SettingProvider>(context , listen: true);
     return  CustomAppBar(
-      title: AppLocal.loc.note,
+      title: AppLocal.loc.theNotes,
       onIconPressed: (){
         showSearch(
             context: context, delegate: CustomSearchDelegate());

@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget {
     AppLocal.init(context);
     return Row(
       children: [
-        Text(AppLocal.loc.note, style: kTitle1Style),
+        Text(title, style: kTitle1Style),
         const Spacer(),
         Row(
           children: [

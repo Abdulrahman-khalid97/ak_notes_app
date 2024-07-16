@@ -2,7 +2,10 @@
 {
     "language" : "اللغة",
      "title" : "العنوان",
+      "notes" : "ملاحظات",
+       "theNotes" : "الملاحظات",
      "content" : "المحتوى",
+     "searchSuggestionFor":"اقتراحات البحث عن : ",
      "add" : "إضافة",
      "update" : "تحديث",
      "edit":"تعديل",

@@ -15,6 +15,7 @@ import '../../../../core/dialogs/alert_dialoge.dart';
 import '../../../../core/dialogs/snack_bar_dialoge.dart';
 
 
+import '../../../../core/style/dimensional.dart';
 import '../widgets/loading_widget.dart';
 
 class NotesPageBody extends StatefulWidget {
@@ -55,13 +56,13 @@ class _NotesPageBodyState extends State<NotesPageBody> {
                 child: StaggeredGridView.countBuilder(
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
-                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+                  padding: const EdgeInsets.symmetric( vertical: kDefaultPadding),
                   crossAxisCount: 4,
                   physics: const BouncingScrollPhysics(),
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) =>
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        padding: const EdgeInsets.symmetric(vertical: 0),
                         child: Dismissible(
                           direction: DismissDirection.startToEnd,
                           key: Key('note-${ snapshot.data![index].id}-$index'),
@@ -80,7 +81,6 @@ class _NotesPageBodyState extends State<NotesPageBody> {
                                   context,
                                   message: AppLocal.loc.deletedSuccessfully);
                             }).catchError((onError){
-                              print("OnError"+ onError.toString());
                               SnackBarDialoge.showSnackBar(
                                   icon: Icons.error,
                                   bgColor: Colors.red,

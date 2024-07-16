@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/style/dimensional.dart';
 import '../../../../routes/routes.dart';
 import '../pages/login_page.dart';
 
@@ -34,7 +35,7 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
         alignment: Alignment.center,
         child: ListView(
           padding:
-          const EdgeInsets.symmetric(vertical: 16),
+          const EdgeInsets.symmetric(vertical: kVerticalBodyPadding),
           shrinkWrap: true,
           children: [
             const Image(

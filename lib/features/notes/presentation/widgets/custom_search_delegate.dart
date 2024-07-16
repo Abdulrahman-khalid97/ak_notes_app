@@ -1,16 +1,15 @@
 
-import 'package:ak_notes_app/features/notes/data/models/note_model.dart';
+import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/features/notes/presentation/provider/note_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/custom_notes_search_item.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../domain/entities/note.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
+
     return [
       IconButton(
         icon: const Icon(Icons.clear),
@@ -34,8 +33,9 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     // Implement your search logic here
+    AppLocal.init(context);
     return Center(
-      child: Text('Search results for: $query'),
+      child: Text('${AppLocal.loc.searchSuggestionFor} $query'),
     );
   }
 
@@ -47,15 +47,16 @@ class CustomSearchDelegate extends SearchDelegate {
     // Implement your search suggestions here
     return
       filteredList!.isNotEmpty? ListView.builder(
-          itemCount: filteredList!.length ,
-          itemBuilder: (context, index) {
+          itemCount: filteredList.length ,
+          itemBuilder: (context, index){
             if (filteredList!.isNotEmpty){
-              return CustomNoteSearchItem(note: filteredList![index], deleteEvent: () {});
+              return CustomNoteSearchItem(note: filteredList[index], deleteEvent: () {});
             }
+            return Text(AppLocal.loc.noNotes);
 
           }) :   Center(
         child:
-        Text('Search suggestions for: $query'),
+        Text('${AppLocal.loc.searchSuggestionFor} $query'),
       );
 
     //   Center(

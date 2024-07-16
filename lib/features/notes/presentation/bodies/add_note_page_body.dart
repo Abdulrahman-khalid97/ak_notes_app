@@ -1,5 +1,6 @@
 
 import 'package:ak_notes_app/app_local.dart';
+import 'package:ak_notes_app/core/style/dimensional.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/provider/add_update_delete_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/provider/note_provider.dart';
@@ -57,7 +58,7 @@ class _AddNoteFormState extends State<_AddNoteForm> {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 16,
+                  height: kAppBarUp,
                 ),
                 _buildAppBar(context),
                 Expanded(

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/core/provider_setting.dart';
+import 'package:ak_notes_app/core/style/dimensional.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:ak_notes_app/features/auth/presentation/widgets/custom_icon.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/custom_app_bar.dart';
@@ -61,13 +62,13 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
     return  ChangeNotifierProvider(
       create: (_)=>SettingProvider(),
       child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 16,
+                  height: kAppBarUp,
                 ),
               CustomAppBarBack(title: AppLocal.loc.settings),
                 const SizedBox(
@@ -117,7 +118,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
 
                     Consumer<SettingProvider>(
                       builder: (context , setting , child) {
-                        return CustomIcon(icon: setting.local!=AppLocal.loc.en?Icons.chevron_right_outlined:Icons.chevron_left_outlined, onIconPressed: () async{
+                        return CustomIcon(icon: setting.local==AppLocal.loc.en?Icons.chevron_right_outlined:Icons.chevron_left_outlined, onIconPressed: () async{
                              Navigator.pushNamed(context, RouteManager.updatePasswordPage);
                             },
 
@@ -136,7 +137,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                     const Spacer() ,
                     Consumer<SettingProvider>(
                       builder: (context , setting , child) {
-                        return CustomIcon(icon: setting.local!=AppLocal.loc.en?Icons.chevron_right_outlined:Icons.chevron_left_outlined , onIconPressed: () async{
+                        return CustomIcon(icon: setting.local==AppLocal.loc.en?Icons.chevron_right_outlined:Icons.chevron_left_outlined , onIconPressed: () async{
                           await context.read<AuthenticationProvider>().signOut().then((value){
                             Navigator.of(context).pop();
                             Navigator.popAndPushNamed(context, RouteManager.loginPage);
@@ -164,7 +165,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                     const SizedBox(width: 16,) ,
                      Consumer<SettingProvider>(
                        builder: (context , setting , child) {
-                         return CustomIcon(icon:  setting.local!=AppLocal.loc.en?Icons.chevron_right_outlined:Icons.chevron_left_outlined, onIconPressed: (){
+                         return CustomIcon(icon:  setting.local==AppLocal.loc.en?Icons.chevron_right_outlined:Icons.chevron_left_outlined, onIconPressed: (){
                           Navigator.pushNamed(context, RouteManager.changeLangPage);
                                              },);
                        }
@@ -202,7 +203,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                      Consumer<SettingProvider>(
                        builder: (context , setting , child) {
 
-                         return CustomIcon(icon:  setting.local!=AppLocal.loc.en?Icons.chevron_right_outlined:Icons.chevron_left_outlined);
+                         return CustomIcon(icon:  setting.local==AppLocal.loc.en?Icons.chevron_right_outlined:Icons.chevron_left_outlined);
                        }
                      ) ,
 

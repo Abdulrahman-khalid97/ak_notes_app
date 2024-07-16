@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/dialogs/snack_bar_dialoge.dart';
 
+import '../../../../core/style/dimensional.dart';
 import '../../domain/entities/note.dart';
 import '../provider/add_update_delete_provider.dart';
 import '../provider/note_provider.dart';
@@ -38,11 +39,11 @@ class EditNoteBodyState extends State<EditNoteBody> {
     return ChangeNotifierProvider(
         create: (_) => context.read<AddUpdateDeleteProvider>(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding),
           child: Column(
             children: [
               const SizedBox(
-                height: 16,
+                height: kAppBarUp,
               ),
             _buildAppBar(context),
 

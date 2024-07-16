@@ -3,7 +3,10 @@
 
     "language" : "language",
     "title" : "Title",
+    "notes" : "Notes",
+    "theNotes" : "Notes",
     "content" : "Content",
+    "searchSuggestionFor":"Search Suggestion for : ",
      "add" : "add",
      "ok":"Ok" ,
      "cancel":"Cancel",
