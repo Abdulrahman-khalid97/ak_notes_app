@@ -5,7 +5,7 @@ class SharedPref{
 
   static String? lang;
   static bool? initialIsDarkMode;
-  static addLang(String lang) async{
+  static  Future<void> addLang(String lang) async{
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString("lang", lang);
   }

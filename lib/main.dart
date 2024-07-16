@@ -7,7 +7,6 @@ import 'package:ak_notes_app/features/notes/presentation/provider/add_update_del
 import 'package:ak_notes_app/features/notes/presentation/provider/note_provider.dart';
 import 'package:ak_notes_app/firebase_options.dart';
 import 'package:ak_notes_app/routes/routes.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,10 +23,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await di.init();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await SharedPref.getLang();
   await SharedPref.getState();
+
   runApp( const NotesApp());
 }
 
