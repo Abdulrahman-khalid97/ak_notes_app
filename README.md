@@ -3,12 +3,11 @@
 # pages
 
 - login page
-![image](https://github.com/user-attachments/assets/58f86c27-afce-43fe-85db-c80c8d78da8e)
+![image](https://github.com/user-attachments/assets/f3ca7f35-8d66-4fea-94ca-96be851fbffe)
 
 - register page
 
-  ![image](https://github.com/user-attachments/assets/a74eb999-4f21-4dcf-b57d-3688e3e91d47)
-
+![image](https://github.com/user-attachments/assets/f9964f9e-7c18-4d19-b4c8-c33446f08796)
 
 - show all notes
   
