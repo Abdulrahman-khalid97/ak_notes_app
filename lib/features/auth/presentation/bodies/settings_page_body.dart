@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:ak_notes_app/app_local.dart';
@@ -149,17 +150,30 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: kHorizontalBodyPadding, vertical: 5),
+                  horizontal: kHorizontalBodyPadding, vertical: kSettingItemPadding),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const CustomIcon(icon: Icons.password_outlined),
                   const SizedBox(
-                    width: 10,
+                    width: 16,
                   ),
-                  Text(
-                    AppLocal.loc.password,
-                    style: kTitle2Style,
+                  Column(
+
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppLocal.loc.password,
+                        style: kTitle2Style,
+                      ),
+                     const  SizedBox(height: 5,),
+                      Text(
+                        AppLocal.loc.changePassword,
+                        style: kSubTitleStyle,
+                      ),
+                    ],
                   ),
+
                 ],
               ),
             ),
@@ -177,7 +191,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: kHorizontalBodyPadding, vertical: 5),
+                  horizontal: kHorizontalBodyPadding, vertical: kSettingItemPadding),
               child: Row(
                 children: [
                   const CustomIcon(icon: Icons.logout),
@@ -192,80 +206,118 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
               ),
             ),
           ),
-
+          const SizedBox(height: kSectionTop/2,),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding , vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding , vertical: kSettingItemPadding/2),
             child: Text(
               AppLocal.loc.appSettings,
               style: kTitleHeaderStyle,
             ),
           ),
-          const SizedBox(height: 5,),
           InkWell(
             onTap: (){
 
               Navigator.pushNamed(context, RouteManager.changeLangPage);
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding , vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding , vertical: kSettingItemPadding),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const CustomIcon(icon: Icons.language),
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    AppLocal.loc.language,
-                    style: kTitle2Style,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppLocal.loc.language,
+                        style: kTitle2Style,
+                      ),
+                      const  SizedBox(height: 5,),
+                      Text(
+                        AppLocal.loc.changeAppLanguage,
+                        style: kSubTitleStyle,
+                      ),
+                    ],
                   ),
-                  const Spacer(),
-                  Text(
-                    context.watch<SettingProvider>().local!,
-                    style: kSubTitleStyle,
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  )
+                  // const Spacer(),
+                  // Text(
+                  //   context.watch<SettingProvider>().local!,
+                  //   style: kSubTitleStyle,
+                  // ),
+                  // const SizedBox(
+                  //   width: 16,
+                  // )
                 ],
               ),
             ),
           ),
 
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding , vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding , vertical: kSettingItemPadding),
             child: Row(
               children: [
                 const CustomIcon(icon: Icons.dark_mode_outlined),
                 const SizedBox(
                   width: 10,
                 ),
-                Text(
-                  AppLocal.loc.darkMode,
-                  style: kTitle2Style,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocal.loc.darkMode,
+                      style: kTitle2Style,
+                    ),
+                    const  SizedBox(height: 5,),
+                    Text(
+                      context.watch<SettingProvider>().isDarkMode!?AppLocal.loc.dark: AppLocal.loc.light,
+                      style: kSubTitleStyle,
+                    ),
+                  ],
                 ),
                 const Spacer(),
-                Text(
-                  context.watch<SettingProvider>().isDarkMode!
-                      ? AppLocal.loc.on
-                      : AppLocal.loc.off,
-                  style: kSubTitleStyle,
+                // Text(
+                //   context.watch<SettingProvider>().isDarkMode!
+                //       ? AppLocal.loc.on
+                //       : AppLocal.loc.off,
+                //   style: kSubTitleStyle,
+                // ),
+                // const SizedBox(
+                //   width: 16,
+                // ),
+                Transform.scale(
+                  scale: 0.85,
+                  child: Switch(
+                      activeColor: Colors.blueGrey,
+                      inactiveTrackColor: Colors.grey,
+                      value: context.watch<SettingProvider>().isDarkMode!,
+                      onChanged: (value) {
+                        context.read<SettingProvider>().toggleTheme(value);
+                      }),
                 ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Switch(
-                    activeColor: Colors.blueGrey,
-                    inactiveTrackColor: Colors.grey,
-                    value: context.watch<SettingProvider>().isDarkMode!,
-                    onChanged: (value) {
-                      context.read<SettingProvider>().toggleTheme(value);
-                    }),
+                // SizedBox(
+                //
+                //   height: kDefaultSwitchHeight,
+                //   width: kDefaultSwitchWidth,
+                //   child: FittedBox(
+                //     fit: BoxFit.fill,
+                //     child: Switch(
+                //         activeColor: Colors.blueGrey,
+                //         inactiveTrackColor: Colors.grey,
+                //         value: context.watch<SettingProvider>().isDarkMode!,
+                //         onChanged: (value) {
+                //           context.read<SettingProvider>().toggleTheme(value);
+                //         }),
+                //   ),
+                // ),
               ],
             ),
           ),
 
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding , vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding , vertical: kSettingItemPadding),
             child: Row(
               children: [
                 const CustomIcon(icon: Icons.help),

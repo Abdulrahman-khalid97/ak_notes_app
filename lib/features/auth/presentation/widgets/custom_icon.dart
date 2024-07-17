@@ -1,6 +1,8 @@
 
 import 'package:ak_notes_app/app_local.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/style/dimensional.dart';
 class CustomIcon extends StatelessWidget {
   const CustomIcon({super.key, required this.icon, this.onIconPressed});
 
@@ -10,8 +12,8 @@ class CustomIcon extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      height: 46,
-      width: 46,
+      height: 32,
+      width: 32,
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0),
         borderRadius: BorderRadius.circular(16),
@@ -20,7 +22,7 @@ class CustomIcon extends StatelessWidget {
       child: IconButton(
         onPressed: onIconPressed ,
         icon: Icon(icon ,
-          size: 28,),
+          size: kIconSettingItemSize,),
       ),
     );
   }

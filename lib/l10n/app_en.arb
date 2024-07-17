@@ -8,6 +8,8 @@
     "content" : "Content",
     "searchSuggestionFor":"Search Suggestion for : ",
      "add" : "add",
+     "changeAppLanguage":"Change app language",
+     "transformModes":"Transform between dark and light mode",
      "ok":"Ok" ,
      "cancel":"Cancel",
      "serverFailure":"Server Failure",

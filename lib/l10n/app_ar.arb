@@ -7,6 +7,8 @@
      "content" : "المحتوى",
      "searchSuggestionFor":"اقتراحات البحث عن : ",
      "add" : "إضافة",
+      "changeAppLanguage":"تغير لغة التطبيق",
+       "transformModes":"التبديل بين الوضع المظلم والافتراضي",
      "update" : "تحديث",
      "edit":"تعديل",
      "serverFailure":"خطأ بالاتصال بالسيرفر",
