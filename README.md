@@ -12,43 +12,40 @@
 
 - show all notes
   
-![image](https://github.com/user-attachments/assets/82029b70-aa8e-451f-87b3-d81327d46e07)
+![image](https://github.com/user-attachments/assets/cc92df11-786b-4063-9b3f-041ed8f7e3ac)
+![image](https://github.com/user-attachments/assets/67664a43-7cb3-46dc-89de-c82a5f4e5a06)
+
+![image](https://github.com/user-attachments/assets/9c1ba07f-d17c-4f14-9efa-90f871e48046)
 
 - search page
 
-  ![image](https://github.com/user-attachments/assets/305101d3-8cc8-4a7c-a43f-138c2b171aa7)
+  ![image](https://github.com/user-attachments/assets/54328b8c-121c-45b2-bb7c-3fdc67608454)
 
 - setting page
 
- ![image](https://github.com/user-attachments/assets/3129a14e-3710-4c43-bbd0-3265207d3722)
-![image](https://github.com/user-attachments/assets/8dae8ca2-1d4c-4199-a377-4c217f8315fe)
+ ![image](https://github.com/user-attachments/assets/7e26b3bd-b31d-4cdc-8de1-04fa5943b7f5)
+![image](https://github.com/user-attachments/assets/f7c8bf8a-3c64-4d0c-9455-1fea8110e437)
+
 
 - change or update password page
 
-![image](https://github.com/user-attachments/assets/a6061c32-b380-4ee3-b625-c2016437c7f9)
-![image](https://github.com/user-attachments/assets/1b23a777-838a-4123-b4fa-0b68062e7a1b)
-
+![image](https://github.com/user-attachments/assets/1b928d9f-1d59-4385-8b6c-284149070e21)
+![image](https://github.com/user-attachments/assets/617a1826-fac2-4cf5-997d-20e384e6bd25)
 
 - languages page
 
-  ![image](https://github.com/user-attachments/assets/7d5994bb-5054-4524-9a8d-1aeb28d66ef9)
-  ![image](https://github.com/user-attachments/assets/6065e8fa-eb0d-46fa-89cb-6c8846224a95)
-
-- when choose english language
-  
-  ![image](https://github.com/user-attachments/assets/869e0a28-cc6e-42b8-bafa-59a2c47b0cf4)
-
-- Light Mode
-
-  ![image](https://github.com/user-attachments/assets/b1395be3-94a3-41d0-ad16-b3b5fbebe1ee)
+ ![image](https://github.com/user-attachments/assets/cfa83a23-f548-47eb-aedc-88211d25479b)
+![image](https://github.com/user-attachments/assets/04dc572f-6449-4bf0-87f2-9dd795a94784)
 
 - add Note page
 
-  ![image](https://github.com/user-attachments/assets/10f2b745-8e28-4176-ac7d-4c14e97dbcde)
+![image](https://github.com/user-attachments/assets/bb16624f-c3c7-4b38-9677-1bdc6a8c9c23)
+
 
 - edit note page
 
-  ![image](https://github.com/user-attachments/assets/dbeed12d-7122-451b-828f-ab7c227d464d)
+  ![image](https://github.com/user-attachments/assets/cb5cb6f4-d6f1-4d1c-81dd-a586c8465098)
+
 
 - alert to makeing sure for deleting note
 
