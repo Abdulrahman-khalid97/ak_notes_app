@@ -20,19 +20,19 @@
 
 - setting page
 
-  ![image](https://github.com/user-attachments/assets/830ba976-d0b1-4e67-ba91-5d9c8000836f)
-
-
+ ![image](https://github.com/user-attachments/assets/3129a14e-3710-4c43-bbd0-3265207d3722)
+![image](https://github.com/user-attachments/assets/8dae8ca2-1d4c-4199-a377-4c217f8315fe)
 
 - change or update password page
 
-  ![image](https://github.com/user-attachments/assets/dadce7ec-0ab1-4a9c-9a91-568f96605780)
+![image](https://github.com/user-attachments/assets/a6061c32-b380-4ee3-b625-c2016437c7f9)
+![image](https://github.com/user-attachments/assets/1b23a777-838a-4123-b4fa-0b68062e7a1b)
 
 
 - languages page
 
   ![image](https://github.com/user-attachments/assets/7d5994bb-5054-4524-9a8d-1aeb28d66ef9)
-
+  ![image](https://github.com/user-attachments/assets/6065e8fa-eb0d-46fa-89cb-6c8846224a95)
 
 - when choose english language
   
