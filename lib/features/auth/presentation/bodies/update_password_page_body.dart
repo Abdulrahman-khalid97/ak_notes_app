@@ -42,7 +42,7 @@ class _UpdatePasswordPageBodyState extends State<UpdatePasswordPageBody> {
                 Center(
                   child: Text(AppLocal.loc.changePassword, style: kTitle1Style),
                 ),
-               const SizedBox(height: 50,),
+               const SizedBox(height: 24,),
                 TextFormField(
                   validator: (value){
                     String errorMessage = '';
@@ -76,13 +76,14 @@ class _UpdatePasswordPageBodyState extends State<UpdatePasswordPageBody> {
                       icon: Icon(oldPassVisibility ? Icons.visibility : Icons.visibility_off),
                     ),
                     border:  OutlineInputBorder(
+
                         borderRadius: BorderRadius.circular(8)
                     ) ,
                     hintText: AppLocal.loc.oldPassword,
 
                   ),
                 ),
-                const SizedBox(height: 24,),
+                const SizedBox(height: 10,),
                 TextFormField(
                   validator: (value){
                     String errorMessage = '';
@@ -145,7 +146,7 @@ class _UpdatePasswordPageBodyState extends State<UpdatePasswordPageBody> {
 
                   ),
                 ),
-                const SizedBox(height: 24,),
+                const SizedBox(height: 16,),
                 ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(kGreenColor),
