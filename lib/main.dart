@@ -1,4 +1,5 @@
 
+import 'package:ak_notes_app/core/strings/color.dart';
 import 'package:ak_notes_app/features/auth/presentation/pages/widget_tree_page.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/storage_provider.dart';
@@ -57,6 +58,28 @@ class NotesApp extends StatelessWidget {
               initialRoute: RouteManager.homePage,
               onGenerateRoute: RouteManager.generateRoute,
               theme: ThemeData(
+                buttonTheme:const ButtonThemeData(
+                 buttonColor: kPrimaryColor
+                ),
+
+                elevatedButtonTheme: ElevatedButtonThemeData(
+                   style: ButtonStyle(
+                     backgroundColor: WidgetStateProperty.all<Color>( kPrimaryColor)
+                   )
+                ),
+                radioTheme: RadioThemeData(
+                    fillColor:WidgetStateProperty.all<Color>( kPrimaryColor),
+                ),
+                floatingActionButtonTheme: const FloatingActionButtonThemeData(
+                  backgroundColor: kPrimaryColor
+                ),
+
+                switchTheme: SwitchThemeData(
+                  thumbColor:Provider.of<SettingProvider>(context).isDarkMode ?? SharedPref.initialIsDarkMode!? WidgetStateProperty.all<Color>( kPrimaryColor) : WidgetStateProperty.all<Color>(  Colors.grey),
+                   trackColor: WidgetStateProperty.all<Color>(  Colors.grey.withOpacity(0.5)),
+                    trackOutlineColor : WidgetStateProperty.all<Color>(  Colors.grey)
+                ),
+                primaryColorDark: kPrimaryColor,
                   brightness: Provider.of<SettingProvider>(context).isDarkMode ?? SharedPref.initialIsDarkMode!? Brightness.dark: Brightness.light,
                   fontFamily: "Poppins"
               ),

@@ -148,9 +148,6 @@ class _UpdatePasswordPageBodyState extends State<UpdatePasswordPageBody> {
                 ),
                 const SizedBox(height: 16,),
                 ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(kGreenColor),
-                    ),
                     onPressed: () async{
                   if(_frmKey.currentState!.validate()) {
                     setState(() {

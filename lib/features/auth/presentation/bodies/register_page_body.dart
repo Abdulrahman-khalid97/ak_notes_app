@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/strings/color.dart';
 import '../../../../core/style/dimensional.dart';
 import '../../../../routes/routes.dart';
 import '../pages/login_page.dart';
@@ -284,9 +285,9 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
                                 loading?const SizedBox(
                                     width:24,
                                     height: 24,
-                                    child:  CircularProgressIndicator()): const Icon(Icons.app_registration) ,
+                                    child:  CircularProgressIndicator()): const Icon(Icons.app_registration, color:kWhiteColor,) ,
                                 const   SizedBox(width: 16,),
-                                Text(AppLocal.loc.register)
+                                Text(AppLocal.loc.register , style:const  TextStyle(color: kWhiteColor))
                               ],
                             ),
                           )) ,

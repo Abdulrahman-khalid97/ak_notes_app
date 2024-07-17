@@ -16,6 +16,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/strings/color.dart';
 import '../../../../core/style/text_style.dart';
 import '../../data/models/user_model.dart';
 import '../provider/storage_provider.dart';
@@ -81,7 +82,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
             ),
           ),
           const SizedBox(
-            height: 5,
+            height: 16,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -154,7 +155,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const CustomIcon(icon: Icons.password_outlined),
+                  const  Icon(Icons.password_outlined ,  color: Colors.grey,),
                   const SizedBox(
                     width: 16,
                   ),
@@ -194,9 +195,9 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                   horizontal: kHorizontalBodyPadding, vertical: kSettingItemPadding),
               child: Row(
                 children: [
-                  const CustomIcon(icon: Icons.logout),
+                  const  Icon(Icons.logout_outlined ,  color: Colors.grey,),
                   const SizedBox(
-                    width: 10,
+                    width: 16,
                   ),
                   Text(
                     AppLocal.loc.signOut,
@@ -224,9 +225,9 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const CustomIcon(icon: Icons.language),
+                  const  Icon(Icons.language  ,  color: Colors.grey,),
                   const SizedBox(
-                    width: 10,
+                    width: 16,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -259,9 +260,9 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
             padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding , vertical: kSettingItemPadding),
             child: Row(
               children: [
-                const CustomIcon(icon: Icons.dark_mode_outlined),
+              const  Icon(Icons.dark_mode_outlined  ,  color: Colors.grey,),
                 const SizedBox(
-                  width: 10,
+                  width: 16,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,8 +291,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                 Transform.scale(
                   scale: 0.85,
                   child: Switch(
-                      activeColor: Colors.blueGrey,
-                      inactiveTrackColor: Colors.grey,
+
                       value: context.watch<SettingProvider>().isDarkMode!,
                       onChanged: (value) {
                         context.read<SettingProvider>().toggleTheme(value);
@@ -320,9 +320,9 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
             padding: const EdgeInsets.symmetric(horizontal: kHorizontalBodyPadding , vertical: kSettingItemPadding),
             child: Row(
               children: [
-                const CustomIcon(icon: Icons.help),
+                const  Icon(Icons.help_outline , color: Colors.grey,),
                 const SizedBox(
-                  width: 8,
+                  width: 16,
                 ),
                 Text(
                   AppLocal.loc.help,

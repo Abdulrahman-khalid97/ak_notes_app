@@ -1,4 +1,5 @@
 
+import 'package:ak_notes_app/core/strings/color.dart';
 import 'package:ak_notes_app/features/notes/domain/entities/note.dart';
 import 'package:ak_notes_app/features/notes/presentation/pages/edit_note.page.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class NoteItem extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.note_outlined,
-                          color: Colors.blue,
+                          color: kPrimaryColor,
                           size: 14,
                         ),
                         Flexible(

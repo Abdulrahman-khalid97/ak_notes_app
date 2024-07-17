@@ -1,5 +1,6 @@
 
 import 'package:ak_notes_app/app_local.dart';
+import 'package:ak_notes_app/core/strings/color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -163,9 +164,9 @@ class _LoginPageBodyState extends State<LoginPageBody> {
                                           child: CircularProgressIndicator(),
                                         )
                                       else
-                                        const Icon(Icons.login),
-                                      const SizedBox(width: 24),
-                                      Text(AppLocal.loc.logIn),
+                                        const Icon(Icons.login , color: Colors.white,),
+                                      const SizedBox(width: 16),
+                                      Text(AppLocal.loc.logIn , style:const  TextStyle(color: kWhiteColor),),
                                     ],
                                   );
                                 },

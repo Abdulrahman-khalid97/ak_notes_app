@@ -2,6 +2,8 @@ import 'package:ak_notes_app/features/notes/data/models/note_model.dart';
 import 'package:ak_notes_app/features/notes/presentation/pages/edit_note.page.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/strings/color.dart';
+
 
 class NoteItem extends StatelessWidget {
   const NoteItem({super.key, required this.note, this.deleteEvent});
@@ -40,7 +42,7 @@ class NoteItem extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.note_outlined,
-                          color: Colors.blue,
+                          color: kPrimaryColor,
                           size: 14,
                         ),
                         Flexible(

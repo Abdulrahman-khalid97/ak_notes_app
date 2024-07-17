@@ -45,8 +45,7 @@ AppLocal.init(context);
           floatingActionButton: FloatingActionButton(onPressed: (){
             Navigator.of(context).pushNamed(RouteManager.addNotePage);
           } ,
-      
-            backgroundColor: Colors.blueGrey,
+
             shape: const CircleBorder(),
             child: const  Icon(Icons.add , color: kWhiteColor,),
           )

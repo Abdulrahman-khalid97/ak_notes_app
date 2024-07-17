@@ -108,7 +108,7 @@ class _AddNoteFormState extends State<_AddNoteForm> {
             autoValidateMode= AutovalidateMode.always;
           }
         },
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: kPrimaryColor,
           shape: const CircleBorder(),
           child: const Icon(Icons.check , color: Colors.white,) ,
         ),

@@ -1,4 +1,5 @@
 import 'package:ak_notes_app/app_local.dart';
+import 'package:ak_notes_app/core/strings/color.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +31,18 @@ class CustomAppBar extends StatelessWidget {
           PopupMenuButton(
                 onSelected: onSelected,
                 itemBuilder: (context)=> [
-                  PopupMenuItem( value: 0,child: Text(AppLocal.loc.settings) ,) ,
-                  PopupMenuItem( value: 1,child: Text(AppLocal.loc.signOut) ,)
+                  PopupMenuItem( value: 0,child: Row(children: [
+                   const Icon(Icons.settings , size: 18,) ,
+                    const SizedBox(width: 8,),
+                    Text(AppLocal.loc.settings)
+
+                  ],) ,) ,
+                  PopupMenuItem( value: 1,child: Row(children: [
+                    const Icon(Icons.logout_outlined  , size: 18,) ,
+                    const SizedBox(width: 8,),
+                    Text(AppLocal.loc.signOut)
+
+                  ],) ,)
                 ])
           ],
         )
@@ -73,7 +84,7 @@ class CustomAppBarEdit extends StatelessWidget {
       children: [
         Text(AppLocal.loc.note, style: kTitle1Style),
         const Spacer(),
-        IconButton(onPressed: onIconPressed,icon:  const Icon(Icons.check)),
+        IconButton(onPressed: onIconPressed,icon:  const Icon(Icons.check , color: kPrimaryColor,)),
 
       ],
     );
