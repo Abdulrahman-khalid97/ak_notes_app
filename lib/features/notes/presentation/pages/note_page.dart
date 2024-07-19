@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/dialogs/snack_bar_dialoge.dart';
 import '../../../../core/error/error_message_filter.dart';
 import '../../../../core/provider_setting.dart';
-import '../../../../core/strings/color.dart';
+import '../../../../core/style/color.dart';
 import '../../../../routes/routes.dart';
 
 import '../bodies/note_page_body.dart';

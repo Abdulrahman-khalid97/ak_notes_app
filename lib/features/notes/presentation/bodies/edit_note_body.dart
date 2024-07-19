@@ -3,6 +3,7 @@ import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/core/error/error_message_filter.dart';
 
 import 'package:ak_notes_app/core/error/failure.dart';
+import 'package:ak_notes_app/core/style/color.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/contentTextField.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/title_text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -109,19 +110,18 @@ class EditNoteBodyState extends State<EditNoteBody> {
 
              SnackBarDialoge.showSnackBar(context,
                  message: AppLocal.loc.updatedSuccessfully,
-                 bgColor: Colors.greenAccent,
-                 messageColor: Colors.black,
-                 icon: Icons.check);
+                 bgColor: kGreenColor,
+                 messageColor: kWhiteColor,
+                 icon: Icons.done_outline_outlined);
              Navigator.of(context).pop();
            }).catchError((error) {
 
              SnackBarDialoge.showSnackBar(context,
                  message: errorMessage(error),
-                 bgColor: Colors.red,
-                 messageColor: Colors.white,
-                 icon: Icons.error_outline);
+                 bgColor: kErrorColor,
+                 messageColor: kWhiteColor,
+                 icon: Icons.signal_wifi_statusbar_connected_no_internet_4_outlined);
            });
-
          }
          else {
            Navigator.of(context).pop();

@@ -1,5 +1,5 @@
 
-import 'package:ak_notes_app/core/strings/color.dart';
+import 'package:ak_notes_app/core/style/color.dart';
 import 'package:ak_notes_app/features/auth/presentation/pages/widget_tree_page.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/storage_provider.dart';

@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/dialogs/snack_bar_dialoge.dart';
 import '../../../../core/error/error_message_filter.dart';
-import '../../../../core/strings/color.dart';
+import '../../../../core/style/color.dart';
 import '../../domain/entities/note.dart';
 import '../widgets/custom_app_bar.dart';
 
@@ -97,7 +97,7 @@ class _AddNoteFormState extends State<_AddNoteForm> {
              await context.read<AddUpdateDeleteProvider>().addNote(context.read<AuthenticationProvider>().user!.uid, note!).then((value) {
                 context.read<NoteProvider>().getNotes(context.read<AuthenticationProvider>().user!.uid);
                SnackBarDialoge.showSnackBar(context , message: AppLocal.loc.addSuccessfully ,
-               bgColor: Colors.greenAccent, messageColor: Colors.black ,icon: Icons.check);
+               bgColor: Colors.greenAccent, messageColor: kWhiteColor ,icon: Icons.check_circle);
                 Navigator.of(context).pop();
              }).catchError((onError){
                SnackBarDialoge.showSnackBar(context , message: errorMessage(onError) ,

@@ -9,6 +9,9 @@ import '../../../../app_local.dart';
 import '../../../../core/dialogs/alert_dialoge.dart';
 import '../../../../core/dialogs/snack_bar_dialoge.dart';
 
+import '../../../../core/network/network.dart';
+import '../../../../core/style/color.dart';
+import '../../../../injection_container.dart';
 import '../../domain/entities/note.dart';
 import '../provider/add_update_delete_provider.dart';
 import '../provider/note_provider.dart';
@@ -41,9 +44,21 @@ class NoteListView extends StatelessWidget {
               key: Key('note-${notes[index].id}-$index'),
               child: NoteItem(note: notes[index], deleteEvent: () {}),
               confirmDismiss: (direction) async {
-                bool shouldDismiss =
-                    await AlertDialoge().showAlertDialog(context);
-                return shouldDismiss ?? false;
+                if(await NetworkInfoImpl(sl()).isConnected) {
+                  return context.mounted ? await showDeleteAlert(
+                      context) ? true ?? false : false : false;
+                }
+                else{
+                  if (context.mounted) {
+                    SnackBarDialoge.showSnackBar(
+                        icon: Icons.signal_wifi_connected_no_internet_4_outlined,
+                        bgColor: Colors.lightBlue,
+                        messageColor: kPrimaryColor,
+                        context,
+                        message: AppLocal.loc.noValue);
+                  }
+                  return false;
+                }
               },
               onDismissed: (direction) async {
                await  context

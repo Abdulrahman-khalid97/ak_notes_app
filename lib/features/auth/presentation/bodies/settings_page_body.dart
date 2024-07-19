@@ -16,7 +16,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/strings/color.dart';
+import '../../../../core/style/color.dart';
 import '../../../../core/style/text_style.dart';
 import '../../data/models/user_model.dart';
 import '../provider/storage_provider.dart';
@@ -136,11 +136,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                     )
                   ],
                 ),
-                // const Spacer(),
-                //  CustomIcon(icon: context.watch<SettingProvider>().local! ==AppLocal.loc.ar? Icons.chevron_left_outlined :Icons.chevron_right_outlined , onIconPressed: (){
-                //
-                //    Navigator.pushNamed(context, RouteManager.accountDetailsPage);
-                //  },)
+
               ],
             ),
           ),
@@ -243,14 +239,6 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                       ),
                     ],
                   ),
-                  // const Spacer(),
-                  // Text(
-                  //   context.watch<SettingProvider>().local!,
-                  //   style: kSubTitleStyle,
-                  // ),
-                  // const SizedBox(
-                  //   width: 16,
-                  // )
                 ],
               ),
             ),
@@ -279,15 +267,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                   ],
                 ),
                 const Spacer(),
-                // Text(
-                //   context.watch<SettingProvider>().isDarkMode!
-                //       ? AppLocal.loc.on
-                //       : AppLocal.loc.off,
-                //   style: kSubTitleStyle,
-                // ),
-                // const SizedBox(
-                //   width: 16,
-                // ),
+
                 Transform.scale(
                   scale: 0.85,
                   child: Switch(
@@ -297,21 +277,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                         context.read<SettingProvider>().toggleTheme(value);
                       }),
                 ),
-                // SizedBox(
-                //
-                //   height: kDefaultSwitchHeight,
-                //   width: kDefaultSwitchWidth,
-                //   child: FittedBox(
-                //     fit: BoxFit.fill,
-                //     child: Switch(
-                //         activeColor: Colors.blueGrey,
-                //         inactiveTrackColor: Colors.grey,
-                //         value: context.watch<SettingProvider>().isDarkMode!,
-                //         onChanged: (value) {
-                //           context.read<SettingProvider>().toggleTheme(value);
-                //         }),
-                //   ),
-                // ),
+
               ],
             ),
           ),
@@ -340,6 +306,7 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
+          AppLocal.init(context);
           return Dialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -350,8 +317,8 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   children: [
-                    const Text(
-                      "Select Image From",
+                     Text(
+                     AppLocal.loc.selectImage,
                       style: kTitleHeaderStyle,
                     ),
                     const SizedBox(
@@ -367,16 +334,16 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                                 .selectImage(ImageSource.gallery);
                             if (context.mounted) Navigator.of(context).pop();
                           },
-                          child: const Card(
+                          child:  Card(
                             child: Padding(
-                              padding: EdgeInsets.all(16.0),
+                              padding:const EdgeInsets.all(16.0),
                               child: Column(
                                 children: [
-                                  Icon(
+                                 const  Icon(
                                     Icons.image,
                                     size: 56,
                                   ),
-                                  Text("Gallery")
+                                  Text(  AppLocal.loc.gallery)
                                 ],
                               ),
                             ),
@@ -388,16 +355,16 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                                 .selectImage(ImageSource.camera);
                             if (context.mounted) Navigator.of(context).pop();
                           },
-                          child: const Card(
+                          child:  Card(
                             child: Padding(
-                              padding: EdgeInsets.all(16),
+                              padding:const EdgeInsets.all(16),
                               child: Column(
                                 children: [
-                                  Icon(
+                                const  Icon(
                                     Icons.camera,
                                     size: 56,
                                   ),
-                                  Text("Camera")
+                                  Text(  AppLocal.loc.camera)
                                 ],
                               ),
                             ),
@@ -475,15 +442,17 @@ class _SettingsPageBodyState extends State<SettingsPageBody> {
                             child: ElevatedButton(
                                 onPressed: () async {
                                   await _storageProvider.uploadImageProfile();
-                                  if (context.mounted)
+                                  if (context.mounted) {
+                                    Navigator.of(context).pop();
                                     await context
                                         .read<AuthenticationProvider>()
                                         .updateProfileImage(
                                             _storageProvider.imageUrl!);
-
-                                  _storageProvider.resetVariable();
-                                  if (context.mounted)
+                                  }
+                                  if (context.mounted) {
+                                    _storageProvider.resetVariable();
                                     Navigator.of(context).pop();
+                                  }
                                 },
                                 child: Text(AppLocal.loc.update)))
                         : const SizedBox(),

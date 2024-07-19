@@ -2,7 +2,7 @@
 import 'package:ak_notes_app/app_local.dart';
 import 'package:ak_notes_app/core/error/exception..dart';
 import 'package:ak_notes_app/core/error/failure.dart';
-import 'package:ak_notes_app/core/strings/color.dart';
+import 'package:ak_notes_app/core/style/color.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/authentication_provider.dart';
 import 'package:ak_notes_app/features/auth/presentation/provider/user_crud_provider.dart';
 

@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/strings/color.dart';
+import '../../../../core/style/color.dart';
 import '../../../../core/style/dimensional.dart';
 import '../../../../routes/routes.dart';
 import '../pages/login_page.dart';

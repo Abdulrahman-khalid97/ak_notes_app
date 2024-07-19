@@ -3,7 +3,7 @@ import 'package:ak_notes_app/features/notes/domain/entities/note.dart';
 import 'package:ak_notes_app/features/notes/presentation/pages/edit_note.page.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/strings/color.dart';
+import '../../../../core/style/color.dart';
 
 class CustomNoteSearchItem extends StatelessWidget {
   const CustomNoteSearchItem({super.key, required this.note, this.deleteEvent});

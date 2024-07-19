@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:ak_notes_app/core/error/error_message_filter.dart';
+import 'package:ak_notes_app/core/style/color.dart';
 import 'package:ak_notes_app/features/notes/presentation/provider/add_update_delete_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/provider/note_provider.dart';
 import 'package:ak_notes_app/features/notes/presentation/widgets/note_item.dart';
@@ -10,12 +11,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/quickalert.dart';
 import '../../../../app_local.dart';
 import '../../../../core/dialogs/alert_dialoge.dart';
 import '../../../../core/dialogs/snack_bar_dialoge.dart';
 
 
+import '../../../../core/network/network.dart';
 import '../../../../core/style/dimensional.dart';
+import '../../../../injection_container.dart';
 import '../widgets/loading_widget.dart';
 
 class NotesPageBody extends StatefulWidget {
@@ -68,13 +72,26 @@ class _NotesPageBodyState extends State<NotesPageBody> {
                           key: Key('note-${ snapshot.data![index].id}-$index'),
                           child: NoteItem(note:  snapshot.data![index], deleteEvent: () {}),
                           confirmDismiss: (direction) async {
-                            bool shouldDismiss = await AlertDialoge()
-                                .showAlertDialog(context);
-                            return shouldDismiss ?? false;
+                            if(await NetworkInfoImpl(sl()).isConnected) {
+                              return context.mounted ? await showDeleteAlert(
+                                  context) ? true ?? false : false : false;
+                            }
+                            else{
+                              if (context.mounted) {
+                                SnackBarDialoge.showSnackBar(
+                                  icon: Icons.signal_wifi_connected_no_internet_4_outlined,
+                                  bgColor: kErrorColor,
+                                  messageColor: kWhiteColor,
+                                  context,
+                                  message: AppLocal.loc.checkInternetConnection);
+                              }
+                              return false;
+                              }
+
                           },
                           onDismissed: (direction) async {
                             await context.read<AddUpdateDeleteProvider>().deleteNote( FirebaseAuth.instance.currentUser!.uid , snapshot.data![index]).then((onValue){
-                              SnackBarDialoge.showSnackBar(
+                             return SnackBarDialoge.showSnackBar(
                                   icon: Icons.error,
                                   bgColor: Colors.red,
                                   messageColor: Colors.white,

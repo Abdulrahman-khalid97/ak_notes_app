@@ -1,6 +1,6 @@
 
 import 'package:ak_notes_app/app_local.dart';
-import 'package:ak_notes_app/core/strings/color.dart';
+import 'package:ak_notes_app/core/style/color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

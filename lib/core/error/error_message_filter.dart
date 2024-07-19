@@ -25,9 +25,9 @@ mapFailureToMessage(Failure failure) {
       case EmptyCacheException:
         return AppLocal.loc.emptyCached;
       case OffLineException:
-        return AppLocal.loc.offLineError;
+        return AppLocal.loc.checkInternetConnection;
       case InternetConnectionException:
-        return AppLocal.loc.offLineError;
+        return AppLocal.loc.checkInternetConnection;
       default:
         return AppLocal.loc.unExpectedError;
     }
